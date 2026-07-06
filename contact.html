@@ -5,25 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - Farah Bouhnaida</title>
   <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/navigation.js"></script>
 </head>
-<body>
+<body data-page="contact">
 
   <header>
     <nav class="container">
       <span class="logo">Farah Bouhnaida</span>
       <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="projets.html">Projets</a></li>
-        <li><a href="apropos.html">À propos</a></li>
-        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li><a href="index.html" data-page="accueil">Accueil</a></li>
+        <li><a href="projets.html" data-page="projets">Projets</a></li>
+        <li><a href="apropos.html" data-page="apropos">À propos</a></li>
+        <li><a href="contact.html" data-page="contact" class="active">Contact</a></li>
       </ul>
+      <div class="glider"></div> 
     </nav>
   </header>
 
-  <main class="container">
-    <h1>Contact</h1>
-    <p>Une question, une opportunité de collaboration ? Écrivez-moi !</p>
+  <main class="container page-contact">
+    <!-- Titre -->
+    <h1 class="titre-page">Contact</h1>
+    
+    <!-- Sous-titre -->
+    <p class="sous-titre-page">Une question, une opportunité ? Écrivez-moi !</p>
 
+    <!-- Formulaire -->
     <form action="/contact" method="POST" class="formulaire">
       <div class="ligne-formulaire">
         <div class="champ">
@@ -38,7 +44,7 @@
       </div>
 
       <div class="champ">
-        <label for="moyen-contact">Email/téléphone</label>
+        <label for="moyen-contact">Email / Téléphone</label>
         <input type="text" id="moyen-contact" name="moyen-contact" required>
       </div>
 
@@ -47,7 +53,7 @@
         <textarea id="message" name="message" rows="6" required></textarea>
       </div>
 
-      <button type="submit">Envoyer</button>
+      <button type="submit" class="bouton-envoyer">Envoyer</button>
     </form>
   </main>
 
