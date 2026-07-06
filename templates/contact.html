@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Farah Bouhnaida</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/navigation.js"></script>
+</head>
+<body data-page="contact">
+
+  <header>
+    <nav class="container">
+      <span class="logo">Farah Bouhnaida</span>
+      <ul>
+        <li><a href="index.html" data-page="accueil">Accueil</a></li>
+        <li><a href="projets.html" data-page="projets">Projets</a></li>
+        <li><a href="apropos.html" data-page="apropos">À propos</a></li>
+        <li><a href="contact.html" data-page="contact" class="active">Contact</a></li>
+      </ul>
+      <div class="glider"></div> 
+    </nav>
+  </header>
+
+  <main class="container page-contact">
+    <!-- Titre -->
+    <h1 class="titre-page">Contact</h1>
+    
+    <!-- Sous-titre -->
+    <p class="sous-titre-page">Une question, une opportunité ? Écrivez-moi !</p>
+
+    <!-- Formulaire -->
+    <form action="/contact" method="POST" class="formulaire">
+      <div class="ligne-formulaire">
+        <div class="champ">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" required>
+        </div>
+
+        <div class="champ">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" required>
+        </div>
+      </div>
+
+      <div class="champ">
+        <label for="moyen-contact">Email / Téléphone</label>
+        <input type="text" id="moyen-contact" name="moyen-contact" required>
+      </div>
+
+      <div class="champ">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+
+      <button type="submit" class="bouton-envoyer">Envoyer</button>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>2026 Farah Bouhnaida</span>
+      <a href="mailto:farah.bouhnaida@gmail.com">farah.bouhnaida@gmail.com</a>
+      <a href="https://github.com/farahbouh" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/farahbouh/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+  </footer>
+
+</body>
+</html>

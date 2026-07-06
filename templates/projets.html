@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+  <html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farah Bouhnaida - Portfolio</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/navigation.js"></script>
+  </head>
+  <body data-page="projets">
+
+    <header>
+      <nav class="container">
+        <span class="logo">Farah Bouhnaida</span>
+        <ul>
+          <li><a href="index.html" data-page="accueil">Accueil</a></li>
+        <li><a href="projets.html" data-page="projets">Projets</a></li>
+        <li><a href="apropos.html" data-page="apropos">À propos</a></li>
+        <li><a href="contact.html" data-page="contact">Contact</a></li></ul>
+        <div class="glider"></div>
+      </nav>
+    </header>
+
+    <main class="container">
+    <h1>Projets</h1>
+
+    <div class="grille-projets">
+      {% for i in projets %}
+      <article class="carte-projet">
+        <h2>{{ i.titre }}</h2>
+        <p class="duree-projet">{{ i.duree }}</p>
+        <p>{{ i.description }}</p>
+        <div class="badges">
+          {% for tag in i.tags %}<span class="badge">{{ tag }}</span>{% endfor %}
+        </div>
+        {% if i.lien_demo %}
+          <a href="{{ i.lien_demo }}" target="_blank" rel="noopener" class="bouton-principal">Voir la démo</a>
+        {% else %}
+          <a href="{{ i.lien_code }}" target="_blank" rel="noopener" class="bouton-principal">Voir le code</a>
+        {% endif %}
+        <div class="liens-projet">
+          {% if i.lien_video %}<a href="{{ i.lien_video }}" target="_blank">Voir la démo admin (vidéo)</a>{% endif %}
+          {% if i.lien_demo %}<a href="{{ i.lien_code }}" target="_blank" rel="noopener">Code source</a>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </main>
+
+
+    <footer>
+      <div class="container">
+        <span>2026 Farah Bouhnaida</span>
+      <a href="mailto:farah.bouhnaida@gmail.com">farah.bouhnaida@gmail.com</a>
+      <a href="https://github.com/farahbouh" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/farahbouh/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="static/CV_Farah_Bouhnaida.pdf">CV</a>
+      </div>
+    </footer>
+
+  </body>
+  </html>
