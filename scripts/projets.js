@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!container) return;
     
-    fetch('/api/projets')
+    fetch('projets')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur réseau');
