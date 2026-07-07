@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!container) return;
     
-    fetch('projets')
+    fetch('/data/projets.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur réseau');
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })
         .catch(error => {
+            console.error('Erreur:', error);
             container.innerHTML = '<p>Erreur de chargement des projets</p>';
         });
 });
