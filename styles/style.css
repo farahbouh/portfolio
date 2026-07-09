@@ -24,10 +24,13 @@ body {
     background: #f5f7fa;
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
 
 main {
     flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ====== TITRES ====== */
@@ -47,8 +50,11 @@ h1 {
 .hero-section {
     position: relative;
     background-color: var(--bleu-foncé);
-    padding: 90px 0 70px;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
     overflow: hidden;
+    min-height: 60vh;
 }
 
 .hero-grille {
@@ -141,6 +147,7 @@ h1 {
     padding: 18px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
 }
 
 .marquee-track {
@@ -191,6 +198,12 @@ h1 {
     .marquee-track {
         animation: none;
     }
+}
+
+/* Sur l'accueil, tout l'espace du main reste bleu foncé,
+   même la partie vide poussée par le footer collé en bas */
+body[data-page="accueil"] main {
+    background-color: var(--bleu-foncé);
 }
 
 /* ====== HEADER ====== */
@@ -418,7 +431,6 @@ nav a.active {
 footer {
     background-color: var(--bleu-foncé);
     padding: 20px 0;
-    margin-top: 40px;
     flex-shrink: 0;
 }
 
@@ -709,7 +721,8 @@ footer a:hover {
     }
 
     .hero-section {
-        padding: 60px 0 50px;
+        min-height: 50vh;
+        padding: 40px 0;
     }
 
     .hero-nom {
