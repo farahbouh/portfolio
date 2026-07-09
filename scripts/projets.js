@@ -17,8 +17,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.innerHTML = '<p>Aucun projet à afficher</p>';
                 return;
             }
+
+            // Si l'URL contient ?competence=Flask (venant du bandeau défilant),
+            // on réordonne la liste : les projets correspondants passent en premier,
+            // les autres suivent, sans rien exclure.
+            const params = new URLSearchParams(window.location.search);
+            const competence = params.get('competence');
+            const cible = competence ? competence.toLowerCase() : null;
+
+            const correspond = (projet) =>
+                cible && (projet.tags || []).some(t => t.toLowerCase() === cible);
+
+            let listeAffichee = projets;
+            if (cible) {
+                const correspondants = projets.filter(correspond);
+                const autres = projets.filter(p => !correspond(p));
+                listeAffichee = [...correspondants, ...autres];
+            }
             
-            projets.forEach(projet => {
+            listeAffichee.forEach(projet => {
                 const article = document.createElement('article');
                 article.className = 'carte-projet';
 
@@ -26,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // depuis le lien cliqué dans le bandeau défilant
                 const tags = projet.tags || [];
                 article.dataset.tags = tags.map(t => t.toLowerCase()).join(',');
+
+                if (correspond(projet)) {
+                    article.classList.add('carte-surlignee');
+                }
                 
                 let badges = '';
                 if (tags.length > 0) {
@@ -62,35 +83,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.appendChild(article);
             });
 
-            // Si l'URL contient ?competence=Flask (venant du bandeau défilant),
-            // on retrouve la/les cartes concernées, on les met en surbrillance
-            // et on scrolle jusqu'à la première.
-            const params = new URLSearchParams(window.location.search);
-            const competence = params.get('competence');
-
-            if (competence) {
-                const cible = competence.toLowerCase();
-                const cartes = container.querySelectorAll('.carte-projet');
-                let premiereCorrespondance = null;
-
-                cartes.forEach(carte => {
-                    const tagsCarte = carte.dataset.tags ? carte.dataset.tags.split(',') : [];
-                    if (tagsCarte.includes(cible)) {
-                        carte.classList.add('carte-surlignee');
-                        if (!premiereCorrespondance) {
-                            premiereCorrespondance = carte;
-                        }
-                    }
-                });
-
-                if (premiereCorrespondance) {
-                    premiereCorrespondance.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // La surbrillance s'estompe après quelques secondes
-                    setTimeout(() => {
-                        cartes.forEach(carte => carte.classList.remove('carte-surlignee'));
-                    }, 3000);
+            // Scrolle jusqu'en haut de la grille (où se trouvent les cartes
+            // correspondantes, désormais en tête) et estompe la surbrillance
+            // après quelques secondes.
+            if (cible) {
+                const premiereCarte = container.querySelector('.carte-projet');
+                if (premiereCarte) {
+                    premiereCarte.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+                setTimeout(() => {
+                    container.querySelectorAll('.carte-surlignee')
+                        .forEach(carte => carte.classList.remove('carte-surlignee'));
+                }, 3000);
             }
         })
         .catch(error => {

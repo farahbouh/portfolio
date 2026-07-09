@@ -354,13 +354,26 @@ nav a.active {
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    scroll-margin-top: 100px;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.carte-surlignee {
-    border-color: var(--bleu);
-    box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.25), 0 8px 20px rgba(27, 79, 114, 0.15);
+.filtre-actif {
+    background: #ebf8ff;
+    border: 1px solid #bee3f8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--bleu-foncé);
+}
+
+.filtre-actif a {
+    color: var(--bleu);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.filtre-actif a:hover {
+    text-decoration: underline;
 }
 
 .carte-projet h2 {
