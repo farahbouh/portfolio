@@ -21,10 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
             projets.forEach(projet => {
                 const article = document.createElement('article');
                 article.className = 'carte-projet';
+
+                // Stocke les tags en minuscules pour pouvoir les retrouver
+                // depuis le lien cliqué dans le bandeau défilant
+                const tags = projet.tags || [];
+                article.dataset.tags = tags.map(t => t.toLowerCase()).join(',');
                 
                 let badges = '';
-                if (projet.tags && projet.tags.length > 0) {
-                    projet.tags.forEach(tag => {
+                if (tags.length > 0) {
+                    tags.forEach(tag => {
                         badges += `<span class="badge">${tag}</span>`;
                     });
                 }
@@ -56,6 +61,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 container.appendChild(article);
             });
+
+            // Si l'URL contient ?competence=Flask (venant du bandeau défilant),
+            // on retrouve la/les cartes concernées, on les met en surbrillance
+            // et on scrolle jusqu'à la première.
+            const params = new URLSearchParams(window.location.search);
+            const competence = params.get('competence');
+
+            if (competence) {
+                const cible = competence.toLowerCase();
+                const cartes = container.querySelectorAll('.carte-projet');
+                let premiereCorrespondance = null;
+
+                cartes.forEach(carte => {
+                    const tagsCarte = carte.dataset.tags ? carte.dataset.tags.split(',') : [];
+                    if (tagsCarte.includes(cible)) {
+                        carte.classList.add('carte-surlignee');
+                        if (!premiereCorrespondance) {
+                            premiereCorrespondance = carte;
+                        }
+                    }
+                });
+
+                if (premiereCorrespondance) {
+                    premiereCorrespondance.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // La surbrillance s'estompe après quelques secondes
+                    setTimeout(() => {
+                        cartes.forEach(carte => carte.classList.remove('carte-surlignee'));
+                    }, 3000);
+                }
+            }
         })
         .catch(error => {
             console.error('Erreur:', error);

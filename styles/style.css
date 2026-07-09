@@ -4,6 +4,7 @@
     --bleu: #1B4F72;
     --bleu-foncé: #0b202e;
     --blanc: #cddbe4;
+    --police-affichage: 'Space Grotesk', Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -29,7 +30,7 @@ main {
     flex: 1 0 auto;
 }
 
-/* ====== TITRES (unifiés, valables sur toutes les pages) ====== */
+/* ====== TITRES ====== */
 h1 {
     font-size: 32px;
     color: var(--bleu-foncé);
@@ -42,10 +43,28 @@ h1 {
     margin-bottom: 35px;
 }
 
-/* ====== HERO (page d'accueil) ====== */
+/* ====== HERO ====== */
 .hero-section {
+    position: relative;
     background-color: var(--bleu-foncé);
-    padding: 90px 0 80px;
+    padding: 90px 0 70px;
+    overflow: hidden;
+}
+
+.hero-grille {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(205, 219, 228, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(205, 219, 228, 0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 90%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 40%, transparent 90%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
 }
 
 .hero-eyebrow {
@@ -58,8 +77,10 @@ h1 {
 }
 
 .hero-nom {
+    font-family: var(--police-affichage);
     color: #ffffff;
     font-size: 48px;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
@@ -113,6 +134,64 @@ h1 {
     border-color: #24699a;
 }
 
+/* ====== BANDEAU DÉFILANT ====== */
+.marquee-section {
+    background: var(--bleu);
+    overflow: hidden;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: defiler 24s linear infinite;
+}
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.marquee-item {
+    font-family: var(--police-affichage);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 20px;
+    color: #ffffff;
+    white-space: nowrap;
+    padding: 0 20px;
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.marquee-item:hover {
+    color: var(--bleu-foncé);
+    text-decoration: underline;
+}
+
+.marquee-sep {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+}
+
+@keyframes defiler {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.marquee-section:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none;
+    }
+}
 
 /* ====== HEADER ====== */
 header {
@@ -275,9 +354,15 @@ nav a.active {
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    scroll-margin-top: 100px;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Les titres de carte sont des <h2> dans le HTML (pas h3) */
+.carte-surlignee {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.25), 0 8px 20px rgba(27, 79, 114, 0.15);
+}
+
 .carte-projet h2 {
     color: var(--bleu-foncé);
     font-size: 18px;
@@ -341,8 +426,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* ====== PAGE CONTACT ====== */
-
+/* ====== PAGE CONTACT / À PROPOS ====== */
 .page-contact,
 .page-apropos {
     padding: 30px 0 60px;
@@ -354,7 +438,6 @@ footer a:hover {
     align-items: flex-start;
 }
 
-/* Formulaire */
 .formulaire {
     background: white;
     padding: 30px;
@@ -424,9 +507,6 @@ footer a:hover {
     background: var(--bleu-foncé);
 }
 
-/* ====== PAGE À PROPOS ====== */
-
-/* Grille 2 colonnes */
 .grille-apropos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -434,7 +514,6 @@ footer a:hover {
     margin-bottom: 20px;
 }
 
-/* Titres de sections (h3 dans le HTML) */
 .titre-section {
     font-size: 18px;
     color: var(--bleu-foncé);
@@ -445,7 +524,6 @@ footer a:hover {
     display: inline-block;
 }
 
-/* Sections */
 .section-apropos {
     background: white;
     padding: 25px;
@@ -457,7 +535,6 @@ footer a:hover {
     grid-column: 1 / -1;
 }
 
-/* Call to Action en bas */
 .cta-subtil {
     text-align: center;
     padding: 25px 0 10px 0;
@@ -482,7 +559,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Liste des expériences */
 .liste-experiences {
     list-style: none;
     padding: 0;
@@ -545,7 +621,6 @@ footer a:hover {
     line-height: 1.5;
 }
 
-/* Badges */
 .badges-container {
     display: flex;
     flex-wrap: wrap;
@@ -632,7 +707,11 @@ footer a:hover {
         font-size: 17px;
     }
 
-    /* Page Contact responsive */
+    .marquee-item {
+        font-size: 16px;
+        padding: 0 14px;
+    }
+
     .formulaire {
         padding: 20px;
     }
@@ -648,7 +727,6 @@ footer a:hover {
         padding: 8px 12px;
     }
 
-    /* Page À propos responsive */
     .grille-apropos {
         grid-template-columns: 1fr;
         gap: 20px;
