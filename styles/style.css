@@ -353,78 +353,153 @@ nav a.active {
     background: radial-gradient(circle at top right, transparent 12px, var(--bleu) 12.5px);
 }
 
-/* ====== PROJETS ====== */
+/* ====== PROJETS - VERSION ÉPURÉE ====== */
+
+/* En-tête de la page projets */
+.page-projets-header {
+    margin-bottom: 40px;
+}
+
+.page-projets-header h1 {
+    font-size: 36px;
+    font-family: var(--police-affichage);
+}
+
+.page-projets-header .sous-titre-page {
+    margin-bottom: 0;
+    color: #718096;
+}
+
+/* Grille des projets */
 .grille-projets {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
     margin-top: 20px;
 }
 
+/* Cartes projets */
 .carte-projet {
     background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    padding: 28px 28px 32px;
+    border: 1px solid #eef2f6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    position: relative;
 }
 
+.carte-projet:hover {
+    border-color: var(--bleu);
+    box-shadow: 0 8px 30px rgba(27, 79, 114, 0.08);
+    transform: translateY(-4px);
+}
+
+.carte-projet h2 {
+    color: var(--bleu-foncé);
+    font-size: 22px;
+    font-weight: 700;
+    font-family: var(--police-affichage);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+}
+
+.carte-projet .description {
+    color: #4a5568;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Badges */
+.carte-projet .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+
+.badge {
+    display: inline-block;
+    background: #f0f4f8;
+    color: var(--bleu-foncé);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    cursor: default;
+}
+
+.badge:hover {
+    background: var(--bleu);
+    color: white;
+}
+
+/* Bouton */
+.bouton-principal {
+    display: inline-block;
+    color: var(--bleu);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.bouton-principal::after {
+    content: ' →';
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.bouton-principal:hover {
+    border-bottom-color: var(--bleu);
+}
+
+.bouton-principal:hover::after {
+    transform: translateX(4px);
+}
+
+/* Filtre actif */
 .filtre-actif {
-    background: #ebf8ff;
-    border: 1px solid #bee3f8;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-top: 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-top: 30px;
     font-size: 14px;
     color: var(--bleu-foncé);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filtre-actif span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filtre-actif span::before {
+    content: '🏷️';
+    font-size: 16px;
 }
 
 .filtre-actif a {
     color: var(--bleu);
     font-weight: 600;
     text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
 }
 
 .filtre-actif a:hover {
-    text-decoration: underline;
-}
-
-.carte-projet h2 {
-    color: var(--bleu-foncé);
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-.carte-projet p {
-    color: #4a5568;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.badge {
-    display: inline-block;
-    background: var(--bleu);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin: 4px 4px 4px 0;
-}
-
-.bouton-principal {
-    display: inline-block;
-    background: var(--bleu);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin-top: 10px;
-    font-size: 14px;
-    transition: background 0.3s ease;
-}
-
-.bouton-principal:hover {
-    background: var(--bleu-foncé);
+    background: #edf2f7;
 }
 
 /* ====== FOOTER ====== */
@@ -451,7 +526,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* ====== PAGE CONTACT / À PROPOS ====== */
+/* ====== PAGE CONTACT ====== */
 .page-contact,
 .page-apropos {
     padding: 30px 0 60px;
@@ -532,6 +607,7 @@ footer a:hover {
     background: var(--bleu-foncé);
 }
 
+/* ====== PAGE À PROPOS ====== */
 .grille-apropos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -714,6 +790,29 @@ footer a:hover {
 
     .grille-projets {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .carte-projet {
+        padding: 22px 22px 26px;
+    }
+
+    .carte-projet h2 {
+        font-size: 20px;
+    }
+
+    .carte-projet .description {
+        font-size: 14px;
+    }
+
+    .page-projets-header h1 {
+        font-size: 28px;
+    }
+
+    .filtre-actif {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 16px;
     }
 
     h1 {

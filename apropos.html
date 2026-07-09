@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>À propos - Farah Bouhnaida</title>
   <link rel="stylesheet" href="styles/style.css">
-  <script src="scripts/navigation.js"></script>
+  <script src="scripts/navigation.js" defer></script>
 </head>
 <body data-page="apropos">
 
@@ -13,10 +13,10 @@
     <nav class="container">
       <span class="logo">Farah Bouhnaida</span>
       <ul>
-        <li><a href="index.html" data-page="accueil">Accueil</a></li>
-        <li><a href="projets.html" data-page="projets">Projets</a></li>
-        <li><a href="apropos.html" data-page="apropos" class="active">À propos</a></li>
-        <li><a href="contact.html" data-page="contact">Contact</a></li>
+        <li><a href="/" data-page="accueil">Accueil</a></li>
+        <li><a href="/projets" data-page="projets">Projets</a></li>
+        <li><a href="/apropos" data-page="apropos" class="active">À propos</a></li>
+        <li><a href="/contact" data-page="contact">Contact</a></li>
       </ul>
       <div class="glider"></div> 
     </nav>
@@ -114,7 +114,7 @@
 
     <!-- Call to Action subtil -->
     <div class="cta-subtil">
-      <p class="cta-texte">Vous avez un projet ? <a href="contact.html" class="cta-lien">Contactez-moi</a></p>
+      <p class="cta-texte">Vous avez un projet ? <a href="/contact" class="cta-lien">Contactez-moi</a></p>
     </div>
 
   </main>
@@ -125,7 +125,7 @@
       <a href="mailto:farah.bouhnaida@gmail.com">farah.bouhnaida@gmail.com</a>
       <a href="https://github.com/farahbouh" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/farahbouh/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="/static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener">CV</a>
     </div>
   </footer>
 
