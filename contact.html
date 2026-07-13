@@ -23,36 +23,28 @@
   </header>
 
   <main class="container page-contact">
-    <!-- Titre -->
     <h1 class="titre-page">Contact</h1>
-    
-    <!-- Sous-titre -->
     <p class="sous-titre-page">Une question, une opportunité ? Écrivez-moi !</p>
 
-    <!-- Formulaire relié à Formspree (remplace XXXXXXXX par ton vrai identifiant) -->
     <form action="https://formspree.io/f/mojgqadn" method="POST" class="formulaire">
       <div class="ligne-formulaire">
         <div class="champ">
           <label for="prenom">Prénom</label>
           <input type="text" id="prenom" name="prenom" required>
         </div>
-
         <div class="champ">
           <label for="nom">Nom</label>
           <input type="text" id="nom" name="nom" required>
         </div>
       </div>
-
       <div class="champ">
         <label for="moyen-contact">Email / Téléphone</label>
         <input type="text" id="moyen-contact" name="moyen_contact" required>
       </div>
-
       <div class="champ">
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="6" required></textarea>
       </div>
-
       <button type="submit" class="bouton-envoyer">Envoyer</button>
     </form>
   </main>

@@ -424,7 +424,6 @@ nav a.active {
     bottom: 0;
     left: 0;
     height: 28px;
-    width: 60px;
     background-color: var(--bleu);
     border-radius: 12px 12px 0 0;
     transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -435,7 +434,6 @@ nav a.active {
 @media (min-width: 600px) {
     .glider {
         height: 32px;
-        width: 80px;
     }
 }
 
@@ -458,8 +456,7 @@ nav a.active {
     background: radial-gradient(circle at top right, transparent 12px, var(--bleu) 12.5px);
 }
 
-/* ====== PROJETS - VERSION ÉPURÉE ====== */
-
+/* ====== PROJETS ====== */
 .page-projets-header {
     margin-bottom: 30px;
 }

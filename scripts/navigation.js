@@ -1,94 +1,32 @@
+// scripts/navigation.js
+
 document.addEventListener('DOMContentLoaded', function() {
+    const glider = document.querySelector('.glider');
+    const activeLink = document.querySelector('nav a.active');
 
-  // ====== GLIDER ======
-  const glider = document.querySelector('.glider');
-  const navLinks = document.querySelectorAll('nav a');
+    if (!glider || !activeLink) return;
 
-  // Place le glider. Si animate=false, on coupe la transition le temps
-  // de positionner l'élément, pour éviter tout mouvement visible.
-  function moveGliderTo(element, animate = true) {
-    const rect = element.getBoundingClientRect();
-    const navRect = element.closest('nav').getBoundingClientRect();
-    const left = rect.left - navRect.left;
-    const width = rect.width;
-
-    if (!animate) {
-      glider.style.transition = 'none';
+    function positionGlider() {
+        const linkRect = activeLink.getBoundingClientRect();
+        const navRect = activeLink.closest('nav').getBoundingClientRect();
+        
+        glider.style.left = (linkRect.left - navRect.left) + 'px';
+        glider.style.width = linkRect.width + 'px';
     }
 
-    glider.style.left = left + 'px';
-    glider.style.width = width + 'px';
+    // Positionne immediatement sans transition au chargement
+    glider.style.transition = 'none';
+    positionGlider();
 
-    if (!animate) {
-      // On force le navigateur à appliquer le style immédiatement
-      // (sinon il regrouperait ce changement avec le suivant et la
-      // coupure de transition n'aurait aucun effet visible).
-      glider.offsetHeight;
-      glider.style.transition = '';
-    }
-  }
-
-  // Détermine quel lien correspond à la page actuellement affichée
-  function setActiveLink() {
-    const currentPage = document.body.dataset.page;
-    let activeLink = null;
-
-    navLinks.forEach(link => {
-      if (link.dataset.page === currentPage) {
-        link.classList.add('active');
-        activeLink = link;
-      } else {
-        link.classList.remove('active');
-      }
+    // Reactive la transition pour les futurs mouvements
+    requestAnimationFrame(function() {
+        glider.style.transition = 'all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1)';
     });
 
-    return activeLink;
-  }
-
-  const activeLink = setActiveLink();
-
-  if (activeLink) {
-    const saved = sessionStorage.getItem('gliderPos');
-
-    if (saved) {
-      // On a une position mémorisée depuis la page précédente :
-      // on y place le glider sans animation (invisible pour l'utilisateur),
-      // puis on l'anime vers sa vraie position sur CETTE page.
-      const { left, width } = JSON.parse(saved);
-      glider.style.transition = 'none';
-      glider.style.left = left + 'px';
-      glider.style.width = width + 'px';
-      glider.offsetHeight;
-      glider.style.transition = '';
-
-      requestAnimationFrame(() => moveGliderTo(activeLink, true));
-    } else {
-      // Tout premier chargement du site : pas de position précédente,
-      // pas de raison d'animer.
-      moveGliderTo(activeLink, false);
-    }
-  }
-
-  // Juste avant de suivre un lien, on sauvegarde où était le glider
-  // pour pouvoir reprendre le mouvement sur la page suivante.
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      const rect = glider.getBoundingClientRect();
-      const navRect = glider.closest('nav').getBoundingClientRect();
-      sessionStorage.setItem('gliderPos', JSON.stringify({
-        left: rect.left - navRect.left,
-        width: rect.width
-      }));
-      // Pas de preventDefault : la navigation normale continue.
+    // Recalcule au resize
+    let timer;
+    window.addEventListener('resize', function() {
+        clearTimeout(timer);
+        timer = setTimeout(positionGlider, 100);
     });
-  });
-
-  // Redimensionnement de la fenêtre
-  window.addEventListener('resize', function() {
-    const active = document.querySelector('nav a.active');
-    if (active) {
-      moveGliderTo(active, false);
-    }
-  });
-
 });
