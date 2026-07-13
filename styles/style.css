@@ -2,7 +2,7 @@
 
 :root {
     --bleu: #1B4F72;
-    --bleu-foncé: #0b202e;
+    --bleu-fonce: #0b202e;
     --blanc: #cddbe4;
     --police-affichage: 'Space Grotesk', Arial, Helvetica, sans-serif;
 }
@@ -36,7 +36,7 @@ main {
 /* ====== TITRES ====== */
 h1 {
     font-size: clamp(24px, 5vw, 32px);
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     margin-bottom: 8px;
 }
 
@@ -49,7 +49,7 @@ h1 {
 /* ====== HERO ====== */
 .hero-section {
     position: relative;
-    background-color: var(--bleu-foncé);
+    background-color: var(--bleu-fonce);
     flex: 1 0 auto;
     display: flex;
     align-items: center;
@@ -171,7 +171,7 @@ h1 {
     border-color: #24699a;
 }
 
-/* ====== BANDEAU DÉFILANT ====== */
+/* ====== BANDEAU DEFILANT ====== */
 .marquee-section {
     background: var(--bleu);
     overflow: hidden;
@@ -219,7 +219,7 @@ h1 {
 }
 
 .marquee-item:hover {
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     text-decoration: underline;
 }
 
@@ -243,14 +243,13 @@ h1 {
     }
 }
 
-/* Sur l'accueil, tout l'espace du main reste bleu foncé */
 body[data-page="accueil"] main {
-    background-color: var(--bleu-foncé);
+    background-color: var(--bleu-fonce);
 }
 
 /* ====== HEADER ====== */
 header {
-    background-color: var(--bleu-foncé);
+    background-color: var(--bleu-fonce);
     padding: 10px 16px 0 16px;
 }
 
@@ -456,27 +455,45 @@ nav a.active {
     background: radial-gradient(circle at top right, transparent 12px, var(--bleu) 12.5px);
 }
 
-/* ====== PROJETS ====== */
-.page-projets-header {
-    margin-bottom: 30px;
+/* ====== PAGES ====== */
+.page-projets,
+.page-contact,
+.page-apropos {
+    padding: 20px 0 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (min-width: 768px) {
-    .page-projets-header {
-        margin-bottom: 40px;
+    .page-projets,
+    .page-contact,
+    .page-apropos {
+        padding: 30px 0 60px;
     }
 }
 
-.page-projets-header h1 {
+.page-projets .titre-page,
+.page-contact .titre-page,
+.page-apropos .titre-page {
     font-size: clamp(28px, 5vw, 36px);
     font-family: var(--police-affichage);
+    color: var(--bleu-fonce);
+    margin-bottom: 8px;
 }
 
-.page-projets-header .sous-titre-page {
-    margin-bottom: 0;
-    color: #718096;
+.page-projets .sous-titre-page,
+.page-contact .sous-titre-page,
+.page-apropos .sous-titre-page {
+    color: #4a5568;
+    font-size: clamp(14px, 2vw, 16px);
+    margin-bottom: 35px;
 }
 
+.page-contact {
+    align-items: flex-start;
+}
+
+/* ====== PROJETS ====== */
 .grille-projets {
     display: grid;
     grid-template-columns: 1fr;
@@ -521,7 +538,7 @@ nav a.active {
 }
 
 .carte-projet h2 {
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     font-size: clamp(18px, 2.5vw, 22px);
     font-weight: 700;
     font-family: var(--police-affichage);
@@ -546,7 +563,7 @@ nav a.active {
 .badge {
     display: inline-block;
     background: #f0f4f8;
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     padding: 4px 14px;
     border-radius: 20px;
     font-size: 12px;
@@ -592,7 +609,7 @@ nav a.active {
     padding: 12px 16px;
     margin-top: 30px;
     font-size: clamp(13px, 1.5vw, 14px);
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -633,62 +650,7 @@ nav a.active {
     background: #edf2f7;
 }
 
-/* ====== FOOTER ====== */
-footer {
-    background-color: var(--bleu-foncé);
-    padding: 16px 0;
-    flex-shrink: 0;
-}
-
-@media (min-width: 768px) {
-    footer {
-        padding: 20px 0;
-    }
-}
-
-footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    color: var(--blanc);
-    font-size: clamp(13px, 1.5vw, 15px);
-}
-
-@media (min-width: 600px) {
-    footer .container {
-        gap: 20px;
-    }
-}
-
-footer a {
-    color: var(--blanc);
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* ====== PAGE CONTACT ====== */
-.page-contact,
-.page-apropos {
-    padding: 20px 0 40px;
-    display: flex;
-    flex-direction: column;
-}
-
-@media (min-width: 768px) {
-    .page-contact,
-    .page-apropos {
-        padding: 30px 0 60px;
-    }
-}
-
-.page-contact {
-    align-items: flex-start;
-}
-
+/* ====== CONTACT ====== */
 .formulaire {
     background: white;
     padding: 20px;
@@ -730,7 +692,7 @@ footer a:hover {
 .champ label {
     display: block;
     font-weight: 600;
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     margin-bottom: 5px;
     font-size: clamp(13px, 1.5vw, 14px);
 }
@@ -787,10 +749,10 @@ footer a:hover {
 }
 
 .bouton-envoyer:hover {
-    background: var(--bleu-foncé);
+    background: var(--bleu-fonce);
 }
 
-/* ====== PAGE À PROPOS ====== */
+/* ====== A PROPOS ====== */
 .grille-apropos {
     display: grid;
     grid-template-columns: 1fr;
@@ -807,7 +769,7 @@ footer a:hover {
 
 .titre-section {
     font-size: clamp(16px, 2vw, 18px);
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     font-weight: 600;
     margin-bottom: 15px;
     padding-bottom: 8px;
@@ -858,7 +820,7 @@ footer a:hover {
 }
 
 .cta-lien:hover {
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     text-decoration: underline;
 }
 
@@ -912,7 +874,7 @@ footer a:hover {
 }
 
 .statut {
-    background: var(--bleu-foncé);
+    background: var(--bleu-fonce);
     color: white;
     padding: 2px 10px;
     border-radius: 20px;
@@ -924,7 +886,7 @@ footer a:hover {
 .intitule {
     font-weight: 600;
     font-size: clamp(15px, 1.8vw, 16px);
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
 }
 
 .etablissement {
@@ -983,7 +945,7 @@ footer a:hover {
 
 .badge-langue {
     background: #f0f4f8;
-    color: var(--bleu-foncé);
+    color: var(--bleu-fonce);
     border: 1px solid #e2e8f0;
     padding: 4px 14px;
 }
@@ -1004,4 +966,41 @@ footer a:hover {
     .badge-langue .niveau {
         font-size: 11px;
     }
+}
+
+/* ====== FOOTER ====== */
+footer {
+    background-color: var(--bleu-fonce);
+    padding: 16px 0;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    footer {
+        padding: 20px 0;
+    }
+}
+
+footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    color: var(--blanc);
+    font-size: clamp(13px, 1.5vw, 15px);
+}
+
+@media (min-width: 600px) {
+    footer .container {
+        gap: 20px;
+    }
+}
+
+footer a {
+    color: var(--blanc);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
