@@ -23,30 +23,65 @@
   </header>
 
   <main class="container page-contact">
-    <h1 class="titre-page">Contact</h1>
-    <p class="sous-titre-page">Une question, une opportunite ? Ecrivez-moi !</p>
+    <div class="carte-contact">
+      <div class="grille-contact">
+        <div class="colonne-info-contact">
+          <h1 class="titre-page">Contact</h1>
+          <p class="sous-titre-page">Une question, une opportunite ? Ecrivez-moi, ou passez par un autre canal.</p>
 
-    <form action="https://formspree.io/f/mojgqadn" method="POST" class="formulaire">
-      <div class="ligne-formulaire">
-        <div class="champ">
-          <label for="prenom">Prenom</label>
-          <input type="text" id="prenom" name="prenom" required>
+          <ul class="liste-contact-icones">
+            <li>
+              <span class="icone-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+              </span>
+              <a href="mailto:farah.bouhnaida@gmail.com">farah.bouhnaida@gmail.com</a>
+            </li>
+            <li>
+              <span class="icone-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.4-7-11.5A7 7 0 0 1 19 9.5C19 14.6 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              </span>
+              <span>Lyon, France</span>
+            </li>
+            <li>
+              <span class="icone-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M8 9h4v2c1-1.5 3-2.3 5-2.3 3 0 5 2 5 5.5V21h-4v-6c0-1.7-1-2.7-2.5-2.7S11 13.3 11 15v6H8z"/></svg>
+              </span>
+              <a href="https://www.linkedin.com/in/farahbouh/" target="_blank" rel="noopener">LinkedIn</a>
+            </li>
+            <li>
+              <span class="icone-contact">
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.113.793-.26.793-.577 0-.285-.01-1.04-.016-2.04-3.338.725-4.042-1.61-4.042-1.61-.546-1.386-1.332-1.756-1.332-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.42-1.305.763-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.468-2.38 1.236-3.22-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.984-.4 3.005-.404 1.02.004 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.655 1.652.243 2.873.12 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.432.372.816 1.104.816 2.226 0 1.606-.015 2.902-.015 3.297 0 .32.192.694.8.576C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              </span>
+              <a href="https://github.com/farahbouh" target="_blank" rel="noopener">GitHub</a>
+            </li>
+          </ul>
+
+          <a href="/static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener" class="bouton-principal">Telecharger mon CV</a>
         </div>
-        <div class="champ">
-          <label for="nom">Nom</label>
-          <input type="text" id="nom" name="nom" required>
-        </div>
+
+        <form action="https://formspree.io/f/mojgqadn" method="POST" class="formulaire">
+          <div class="ligne-formulaire">
+            <div class="champ">
+              <label for="prenom">Prenom</label>
+              <input type="text" id="prenom" name="prenom" required>
+            </div>
+            <div class="champ">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" required>
+            </div>
+          </div>
+          <div class="champ">
+            <label for="moyen-contact">Email / Telephone</label>
+            <input type="text" id="moyen-contact" name="moyen_contact" required>
+          </div>
+          <div class="champ">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="bouton-envoyer">Envoyer</button>
+        </form>
       </div>
-      <div class="champ">
-        <label for="moyen-contact">Email / Telephone</label>
-        <input type="text" id="moyen-contact" name="moyen_contact" required>
-      </div>
-      <div class="champ">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-      </div>
-      <button type="submit" class="bouton-envoyer">Envoyer</button>
-    </form>
+    </div>
   </main>
 
   <footer>
