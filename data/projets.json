@@ -1,22 +1,35 @@
 [
   {
     "id": "interactiv-media",
-    "titre": "Interactiv' Media - Site vitrine avec CMS événements",
-    "description": "Développement full-stack solo : Flask, Supabase, Lighthouse, RGAA.",
+    "titre": "Interactiv' Media - Site vitrine avec systeme de gestion d'evenements",
+    "description": "Developpement full-stack en solo : Python (Flask), Supabase, Lighthouse, RGAA.",
     "duree": "mai 2026 - juil. 2026 (2 mois)",
+    "statut": "termine",
     "tags": ["Flask", "Python", "Supabase"],
     "lien_demo": "https://interactiv-media.netlify.app/",
-    "lien_video": "static/videos/interactiv-media-admin.mp4",
+    "lien_video": "static/videos/interactiv-media.mp4",
     "lien_code": "https://github.com/farahbouh/interactiv-media"
   },
   {
     "id": "portfolio",
     "titre": "Portfolio personnel",
-    "description": "Site vitrine développé en solo : Flask, Jinja, structure de données JSON, design system personnalisé.",
+    "description": "Site vitrine developpe en solo : Flask, structure de donnees JSON, design system personnalise.",
     "duree": "juil. 2026 (2 semaines)",
+    "statut": "termine",
     "tags": ["Flask", "Python", "Jinja", "HTML/CSS"],
     "lien_demo": null,
     "lien_video": null,
     "lien_code": "https://github.com/farahbouh/portfolio"
+  },
+  {
+    "id": "plateforme-apprentissage",
+    "titre": "Plateforme d'apprentissage en ligne",
+    "description": "Application web pour cours en ligne avec systeme de quiz et suivi des progres.",
+    "duree": "sept. 2026 - dec. 2026 (4 mois)",
+    "statut": "en-cours",
+    "tags": ["Flask", "Python", "SQLite", "JavaScript"],
+    "lien_demo": null,
+    "lien_video": null,
+    "lien_code": null
   }
 ]

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/data/projets.json')
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erreur réseau');
+                throw new Error('Erreur reseau');
             }
             return response.json();
         })
@@ -14,13 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
             container.innerHTML = '';
             
             if (projets.length === 0) {
-                container.innerHTML = '<p>Aucun projet à afficher</p>';
+                container.innerHTML = '<p class="error">Aucun projet a afficher</p>';
                 return;
             }
 
-            // Si l'URL contient ?competence=Flask (venant du bandeau défilant),
-            // on réordonne la liste : les projets correspondants passent en premier,
-            // les autres suivent, sans rien exclure.
             const params = new URLSearchParams(window.location.search);
             const competence = params.get('competence');
             const cible = competence ? competence.toLowerCase() : null;
@@ -35,14 +32,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 listeAffichee = [...correspondants, ...autres];
             }
             
-            listeAffichee.forEach(projet => {
+            listeAffichee.forEach((projet, index) => {
                 const article = document.createElement('article');
                 article.className = 'carte-projet';
+                article.style.animationDelay = (index * 0.05) + 's';
 
-                // Stocke les tags en minuscules pour pouvoir les retrouver
-                // depuis le lien cliqué dans le bandeau défilant
                 const tags = projet.tags || [];
-                article.dataset.tags = tags.map(t => t.toLowerCase()).join(',');
+                const statut = projet.statut || 'brouillon';
+
+                // Badge de statut
+                let statutBadge = '';
+                const statutLabels = {
+                    'termine': 'Termine',
+                    'en-cours': 'En cours',
+                    'a-venir': 'A venir',
+                    'brouillon': 'Brouillon'
+                };
+                const statutClasses = {
+                    'termine': 'badge-statut badge-statut-termine',
+                    'en-cours': 'badge-statut badge-statut-en-cours',
+                    'a-venir': 'badge-statut badge-statut-a-venir',
+                    'brouillon': 'badge-statut badge-statut-brouillon'
+                };
+                statutBadge = `<span class="${statutClasses[statut] || 'badge-statut'}">${statutLabels[statut] || statut}</span>`;
 
                 if (correspond(projet)) {
                     article.classList.add('carte-surlignee');
@@ -57,24 +69,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 let bouton = '';
                 if (projet.lien_demo) {
-                    bouton = `<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="bouton-principal">Voir la démo</a>`;
+                    bouton = `<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="bouton-principal">Voir la demo</a>`;
                 } else if (projet.lien_code) {
                     bouton = `<a href="${projet.lien_code}" target="_blank" rel="noopener" class="bouton-principal">Voir le code</a>`;
                 }
                 
                 let liens = '';
                 if (projet.lien_video) {
-                    liens += `<a href="${projet.lien_video}" target="_blank" rel="noopener">Voir la démo admin (vidéo)</a>`;
+                    liens += `<a href="${projet.lien_video}" target="_blank" rel="noopener" class="lien-secondaire">Voir la demo admin (video)</a>`;
                 }
                 if (projet.lien_demo && projet.lien_code) {
                     if (liens) liens += ' ';
-                    liens += `<a href="${projet.lien_code}" target="_blank" rel="noopener">Code source</a>`;
+                    liens += `<a href="${projet.lien_code}" target="_blank" rel="noopener" class="lien-secondaire">Code source</a>`;
                 }
                 
                 article.innerHTML = `
+                    ${statutBadge}
                     <h2>${projet.titre || 'Sans titre'}</h2>
-                    <p class="duree-projet">${projet.duree || ''}</p>
-                    <p>${projet.description || ''}</p>
+                    ${projet.duree ? `<p class="duree-projet">${projet.duree}</p>` : ''}
+                    <p class="description">${projet.description || ''}</p>
                     <div class="badges">${badges}</div>
                     ${bouton}
                     ${liens ? `<div class="liens-projet">${liens}</div>` : ''}
@@ -83,9 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 container.appendChild(article);
             });
 
-            // Scrolle jusqu'en haut de la grille (où se trouvent les cartes
-            // correspondantes, désormais en tête) et estompe la surbrillance
-            // après quelques secondes.
             if (cible) {
                 const premiereCarte = container.querySelector('.carte-projet');
                 if (premiereCarte) {
@@ -99,6 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Erreur:', error);
-            container.innerHTML = '<p>Erreur de chargement des projets</p>';
+            container.innerHTML = '<p class="error">Erreur de chargement des projets</p>';
         });
 });
