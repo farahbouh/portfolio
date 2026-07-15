@@ -12,15 +12,29 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(projets => {
             container.innerHTML = '';
-            
-            if (projets.length === 0) {
-                container.innerHTML = '<p class="error">Aucun projet a afficher</p>';
-                return;
-            }
 
             const params = new URLSearchParams(window.location.search);
             const competence = params.get('competence');
             const cible = competence ? competence.toLowerCase() : null;
+
+            // Bandeau indiquant le filtre actif
+            const filtreExistant = document.querySelector('.filtre-actif');
+            if (filtreExistant) filtreExistant.remove();
+
+            if (cible) {
+                const filtre = document.createElement('div');
+                filtre.className = 'filtre-actif';
+                filtre.innerHTML = `
+                    <span>Filtre par competence : <strong>${competence}</strong></span>
+                    <a href="/projets">Voir tous les projets ✕</a>
+                `;
+                container.parentNode.insertBefore(filtre, container);
+            }
+
+            if (projets.length === 0) {
+                container.innerHTML = '<p class="error">Aucun projet a afficher</p>';
+                return;
+            }
 
             const correspond = (projet) =>
                 cible && (projet.tags || []).some(t => t.toLowerCase() === cible);
@@ -63,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 let badges = '';
                 if (tags.length > 0) {
                     tags.forEach(tag => {
-                        badges += `<span class="badge">${tag}</span>`;
+                        const estCible = cible && tag.toLowerCase() === cible;
+                        badges += `<span class="badge${estCible ? ' badge-surlignee' : ''}">${tag}</span>`;
                     });
                 }
                 
@@ -101,10 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (premiereCarte) {
                     premiereCarte.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-                setTimeout(() => {
-                    container.querySelectorAll('.carte-surlignee')
-                        .forEach(carte => carte.classList.remove('carte-surlignee'));
-                }, 3000);
             }
         })
         .catch(error => {
