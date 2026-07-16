@@ -27,7 +27,6 @@
     <p class="sous-titre-page">Developpeuse passionnee par les technologies et l'innovation</p>
 
     <div class="grille-apropos">
-      <!-- Formation -->
       <section class="section-apropos">
         <h3 class="titre-section">Formation</h3>
         <ul class="liste-experiences">
@@ -44,7 +43,6 @@
         </ul>
       </section>
 
-      <!-- Experience -->
       <section class="section-apropos section-experience">
         <h3 class="titre-section">Expérience professionnelle</h3>
         <ul class="liste-experiences">
@@ -78,7 +76,6 @@
         </ul>
       </section>
 
-      <!-- Langues -->
       <section class="section-apropos">
         <h3 class="titre-section">Langues</h3>
         <div class="badges-container">
@@ -89,20 +86,12 @@
         </div>
       </section>
 
-      <!-- Competences techniques -->
       <section class="section-apropos section-pleine-largeur">
         <h3 class="titre-section">Competences techniques</h3>
         <div class="badges-container">
-          <a href="/projets?competence=Flask" class="badge-tech">Flask</a>
-          <a href="/projets?competence=Python" class="badge-tech">Python</a>
-          <a href="/projets?competence=SQL" class="badge-tech">SQL</a>
-          <a href="/projets?competence=REST%20API" class="badge-tech">REST API</a>
-          <a href="/projets?competence=Java" class="badge-tech">Java</a>
-          <a href="/projets?competence=C%2B%2B" class="badge-tech">C++</a>
-          <a href="/projets?competence=Unity%20%2F%20C%23" class="badge-tech">Unity / C#</a>
-          <a href="/projets?competence=Git" class="badge-tech">Git</a>
-          <a href="/projets?competence=HTML%20%2F%20CSS" class="badge-tech">HTML / CSS</a>
-          <a href="/projets?competence=JavaScript" class="badge-tech">JavaScript</a>
+          {% for comp in competences %}
+            <a href="/projets?competence={{ comp|urlencode }}" class="badge-tech">{{ comp }}</a>
+          {% endfor %}
         </div>
       </section>
     </div>

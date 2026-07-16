@@ -46,26 +46,16 @@
     <section class="marquee-section" aria-label="Competences techniques">
       <div class="marquee-track">
         <div class="marquee-content">
-          <a href="/projets?competence=Flask" class="marquee-item">Flask</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Python" class="marquee-item">Python</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Supabase" class="marquee-item">Supabase</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=REST%20API" class="marquee-item">REST API</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=JavaScript" class="marquee-item">JavaScript</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Java" class="marquee-item">Java</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=C%2B%2B" class="marquee-item">C++</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Unity%20%2F%20C%23" class="marquee-item">Unity / C#</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Git" class="marquee-item">Git</a><span class="marquee-sep">•</span>
+          {% for comp in competences %}
+            <a href="/projets?competence={{ comp|urlencode }}" class="marquee-item">{{ comp }}</a>
+            {% if not loop.last %}<span class="marquee-sep">•</span>{% endif %}
+          {% endfor %}
         </div>
         <div class="marquee-content" aria-hidden="true">
-          <a href="/projets?competence=Flask" class="marquee-item" tabindex="-1">Flask</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Python" class="marquee-item" tabindex="-1">Python</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Supabase" class="marquee-item" tabindex="-1">Supabase</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=REST%20API" class="marquee-item" tabindex="-1">REST API</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=JavaScript" class="marquee-item" tabindex="-1">JavaScript</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Java" class="marquee-item" tabindex="-1">Java</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=C%2B%2B" class="marquee-item" tabindex="-1">C++</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Unity%20%2F%20C%23" class="marquee-item" tabindex="-1">Unity / C#</a><span class="marquee-sep">•</span>
-          <a href="/projets?competence=Git" class="marquee-item" tabindex="-1">Git</a><span class="marquee-sep">•</span>
+          {% for comp in competences %}
+            <a href="/projets?competence={{ comp|urlencode }}" class="marquee-item" tabindex="-1">{{ comp }}</a>
+            {% if not loop.last %}<span class="marquee-sep">•</span>{% endif %}
+          {% endfor %}
         </div>
       </div>
     </section>

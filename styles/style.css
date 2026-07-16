@@ -550,10 +550,13 @@ body[data-page="accueil"] main {
     display: flex;
     flex-direction: column;
     position: relative;
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 1;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.25s ease;
+}
+
+.carte-projet.anim {
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 @media (max-width: 992px) {
@@ -572,12 +575,12 @@ body[data-page="accueil"] main {
     }
 }
 
-.carte-projet:nth-child(1) { animation-delay: 0.05s; }
-.carte-projet:nth-child(2) { animation-delay: 0.1s; }
-.carte-projet:nth-child(3) { animation-delay: 0.15s; }
-.carte-projet:nth-child(4) { animation-delay: 0.2s; }
-.carte-projet:nth-child(5) { animation-delay: 0.25s; }
-.carte-projet:nth-child(6) { animation-delay: 0.3s; }
+.carte-projet.anim:nth-child(1) { animation-delay: 0.05s; }
+.carte-projet.anim:nth-child(2) { animation-delay: 0.1s; }
+.carte-projet.anim:nth-child(3) { animation-delay: 0.15s; }
+.carte-projet.anim:nth-child(4) { animation-delay: 0.2s; }
+.carte-projet.anim:nth-child(5) { animation-delay: 0.25s; }
+.carte-projet.anim:nth-child(6) { animation-delay: 0.3s; }
 
 .carte-projet:hover {
     transform: translateY(-4px);
@@ -1298,6 +1301,126 @@ footer a {
 footer a:hover {
     color: var(--bleu);
     text-decoration: underline;
+}
+
+/* ============================================================
+   FILTRES PROJETS
+   ============================================================ */
+.filtres-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--gris-moyen);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.filtres-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--bleu-fonce);
+    margin-right: 4px;
+}
+
+
+
+.filtre-btn {
+    padding: 6px 16px;
+    background: var(--gris-clair);
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--bleu-fonce);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.filtre-btn:hover {
+    background: var(--bleu-tres-clair);
+    border-color: var(--bleu);
+    transform: translateY(-2px);
+}
+
+.filtre-btn.active {
+    background: var(--bleu);
+    color: white;
+    border-color: var(--bleu);
+    box-shadow: 0 4px 12px rgba(27, 79, 114, 0.25);
+}
+
+.filtre-btn.active:hover {
+    background: var(--bleu-fonce);
+    border-color: var(--bleu-fonce);
+}
+
+.filtres-resultats {
+    margin-left: auto;
+    font-size: 13px;
+    color: #718096;
+}
+
+.filtres-resultats strong {
+    color: var(--bleu-fonce);
+}
+
+/* ============================================================
+   STYLES PROJETS SUPPLEMENTAIRES
+   ============================================================ */
+.duree-projet {
+    font-size: 13px;
+    color: #718096;
+    margin: 4px 0 12px;
+}
+
+.liens-projet {
+    margin-top: 12px;
+}
+
+.lien-secondaire {
+    color: var(--bleu);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.lien-secondaire:hover {
+    color: var(--bleu-fonce);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE FILTRES
+   ============================================================ */
+@media (max-width: 600px) {
+    .filtres-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .filtres-label {
+        margin-bottom: 4px;
+    }
+
+    .filtre-btn {
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 12px;
+        flex: 1;
+    }
+
+    .filtres-resultats {
+        margin-left: 0;
+        text-align: center;
+        padding-top: 4px;
+    }
 }
 
 /* ============================================================

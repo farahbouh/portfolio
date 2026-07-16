@@ -4,20 +4,28 @@ import os
 
 app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
 
+def get_competences():
+    json_path = os.path.join('data', 'competences.json')
+    with open(json_path, encoding='utf-8') as f:
+        return json.load(f)
+
 @app.route('/')
 def accueil():
-    return render_template('index.html')
+    competences = get_competences()
+    return render_template('index.html', competences=competences)
 
 @app.route('/projets')
 def projets():
     json_path = os.path.join('data', 'projets.json')
     with open(json_path, encoding='utf-8') as f:
         liste_projets = json.load(f)
-    return render_template('projets.html', projets=liste_projets)
+    competences = get_competences()
+    return render_template('projets.html', projets=liste_projets, competences=competences)
 
 @app.route('/apropos')
 def apropos():
-    return render_template('apropos.html')
+    competences = get_competences()
+    return render_template('apropos.html', competences=competences)
 
 @app.route('/contact')
 def contact():
@@ -29,6 +37,10 @@ def api_projets():
     with open(json_path, encoding='utf-8') as f:
         liste_projets = json.load(f)
     return jsonify(liste_projets)
+
+@app.route('/api/competences')
+def api_competences():
+    return jsonify(get_competences())
 
 @app.route('/scripts/<path:filename>')
 def serve_scripts(filename):

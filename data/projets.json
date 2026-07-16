@@ -1,14 +1,14 @@
 [
   {
-  "id": "interactiv-media",
-  "titre": "Interactiv' Media - Site vitrine avec systeme de gestion d'evenements",
-  "description": "Site vitrine (7 pages, dont un back-office admin) avec API REST Flask connectee a Supabase, authentification securisee par token, CRUD complet sur les evenements. Deploiement Netlify (frontend) + Render (backend). Score Lighthouse : 83 performances, 86 accessibilite, 100 SEO. Conformite RGAA.",
-  "duree": "mai 2026 - juil. 2026 (2 mois)",
-  "statut": "termine",
-  "tags": ["Flask", "Python", "SQL", "JavaScript", "HTML", "CSS", "Supabase", "Lighthouse", "RGAA", "API REST"],
-  "lien_demo": "https://interactiv-media.netlify.app/",
-  "lien_video": "static/videos/interactiv-media.mp4",
-  "lien_code": "https://github.com/farahbouh/interactiv-media"
+    "id": "interactiv-media",
+    "titre": "Interactiv' Media - Site vitrine avec systeme de gestion d'evenements",
+    "description": "Site vitrine (7 pages, dont un back-office admin) avec API REST Flask connectee a Supabase, authentification securisee par token, CRUD complet sur les evenements. Deploiement Netlify (frontend) + Render (backend). Score Lighthouse : 83 performances, 86 accessibilite, 100 SEO. Conformite RGAA.",
+    "duree": "mai 2026 - juil. 2026 (2 mois)",
+    "statut": "termine",
+    "tags": ["Flask", "Python", "SQL", "JavaScript", "HTML", "CSS", "Supabase", "Lighthouse", "RGAA", "API REST"],
+    "lien_demo": "https://interactiv-media.netlify.app/",
+    "lien_video": "static/videos/interactiv-media.mp4",
+    "lien_code": "https://github.com/farahbouh/interactiv-media"
   },
   {
     "id": "portfolio",
@@ -16,7 +16,7 @@
     "description": "Site vitrine developpe en solo : Flask, structure de donnees JSON, design system personnalise.",
     "duree": "juil. 2026 (2 semaines)",
     "statut": "termine",
-    "tags": ["Flask", "Python", "Jinja", "HTML/CSS"],
+    "tags": ["Flask", "Python", "Jinja", "HTML", "CSS"],
     "lien_demo": null,
     "lien_video": null,
     "lien_code": "https://github.com/farahbouh/portfolio"
@@ -27,7 +27,7 @@
     "description": "Application web pour cours en ligne avec systeme de quiz et suivi des progres.",
     "duree": "sept. 2026 - dec. 2026 (4 mois)",
     "statut": "en-cours",
-    "tags": ["Flask", "Python", "SQLite", "JavaScript"],
+    "tags": ["Flask", "Python", "SQL", "JavaScript"],
     "lien_demo": null,
     "lien_video": null,
     "lien_code": null
