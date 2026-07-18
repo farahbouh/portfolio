@@ -1,5 +1,3 @@
-// scripts/navigation.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const glider = document.querySelector('.glider');
     const activeLink = document.querySelector('nav a.active');

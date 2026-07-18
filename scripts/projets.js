@@ -8,6 +8,54 @@ document.addEventListener('DOMContentLoaded', function() {
     let tousLesProjets = [];
     let filtreActif = 'tous';
 
+    // --- MAPPINGS (sécurisés) ---
+    const statutLabels = {
+        'termine': 'Terminé',
+        'en-cours': 'En cours',
+        'a-venir': 'À venir',
+        'brouillon': 'Brouillon'
+    };
+    const statutClasses = {
+        'termine': 'badge-statut badge-statut-termine',
+        'en-cours': 'badge-statut badge-statut-en-cours',
+        'a-venir': 'badge-statut badge-statut-a-venir',
+        'brouillon': 'badge-statut badge-statut-brouillon'
+    };
+
+    const typeLabels = {
+        'personnel': 'Personnel',
+        'academique': 'Académique',
+        'stage': 'Stage'
+    };
+    const typeClasses = {
+        'personnel': 'badge-type badge-type-personnel',
+        'academique': 'badge-type badge-type-academique',
+        'stage': 'badge-type badge-type-stage'
+    };
+
+    const collabLabels = {
+        'en autonomie': 'En autonomie',
+        'equipe': 'En équipe'
+    };
+
+    // --- Fonctions sécurisées ---
+    function getStatutClass(statut) {
+        return statutClasses[statut] || statutClasses['brouillon'];
+    }
+    function getTypeClass(type) {
+        return typeClasses[type] || 'badge-type';
+    }
+    function getStatutLabel(statut) {
+        return statutLabels[statut] || statut;
+    }
+    function getTypeLabel(type) {
+        return typeLabels[type] || type;
+    }
+    function getCollabLabel(collab) {
+        return collabLabels[collab] || collab;
+    }
+
+    // --- FONCTION D'AFFICHAGE ---
     function afficherProjets() {
         let projetsFiltres = tousLesProjets;
         
@@ -22,10 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (projetsFiltres.length === 0) {
             container.innerHTML = `
-                <div style="width:100%; text-align:center; padding:60px 20px; color:#718096;">
-                    <p style="font-size:48px; margin-bottom:16px;">🔍</p>
-                    <h3>Aucun projet trouve pour cette competence</h3>
-                    <p><a href="/projets" style="color:var(--bleu);">Voir tous les projets</a></p>
+                <div class="aucun-projet">
+                    <h3>Aucun projet trouvé pour cette compétence</h3>
+                    <p><a href="/projets" class="lien-retour">Voir tous les projets</a></p>
                 </div>
             `;
             if (compteur) compteur.textContent = '0';
@@ -41,56 +88,69 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const tags = projet.tags || [];
             const statut = projet.statut || 'brouillon';
+            const type = projet.type || 'personnel';
+            const collaboration = projet.collaboration || 'en autonomie';
 
-            const statutLabels = {
-                'termine': 'Termine',
-                'en-cours': 'En cours',
-                'a-venir': 'A venir',
-                'brouillon': 'Brouillon'
-            };
-            const statutClasses = {
-                'termine': 'badge-statut badge-statut-termine',
-                'en-cours': 'badge-statut badge-statut-en-cours',
-                'a-venir': 'badge-statut badge-statut-a-venir',
-                'brouillon': 'badge-statut badge-statut-brouillon'
-            };
+            // --- Utilisation des fonctions sécurisées ---
+            const statutClass = getStatutClass(statut);
+            const statutLabel = getStatutLabel(statut);
+            const typeClass = getTypeClass(type);
+            const typeLabel = getTypeLabel(type);
+            const collabLabel = getCollabLabel(collaboration);
 
+            // Badges tags
             let badges = '';
             tags.forEach(tag => {
                 const estActif = filtreActif !== 'tous' && tag === filtreActif;
                 badges += `<span class="badge${estActif ? ' badge-surlignee' : ''}">${tag}</span>`;
             });
 
+            // Bouton
             let bouton = '';
             if (projet.lien_demo) {
-                bouton = `<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="bouton-principal">Voir la demo</a>`;
+                bouton = `<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="bouton-principal">Voir la démo</a>`;
             } else if (projet.lien_code) {
                 bouton = `<a href="${projet.lien_code}" target="_blank" rel="noopener" class="bouton-principal">Voir le code</a>`;
             }
 
+            // Surbrillance
             const estSurbrillance = filtreActif !== 'tous' && (projet.tags || []).some(tag => tag === filtreActif);
             if (estSurbrillance) {
                 article.classList.add('carte-surlignee');
             }
 
+            // Durée + collaboration
+            let dureeTexte = projet.duree || '';
+            const affichageDuree = dureeTexte ? `${dureeTexte} · ${collabLabel}` : collabLabel;
+
+            // --- CONSTRUCTION DE LA CARTE ---
             article.innerHTML = `
-                <span class="${statutClasses[statut] || 'badge-statut'}">${statutLabels[statut] || statut}</span>
+                <div class="meta-badges">
+                    <span class="${statutClass}">${statutLabel}</span>
+                    <span class="${typeClass}">${typeLabel}</span>
+                </div>
+
                 <h2>${projet.titre || 'Sans titre'}</h2>
-                ${projet.duree ? `<p class="duree-projet">${projet.duree}</p>` : ''}
+
+                <p class="duree-projet">${affichageDuree}</p>
+
                 <p class="description">${projet.description || ''}</p>
+
                 <div class="badges">${badges}</div>
+
                 ${bouton}
-                ${projet.lien_video ? `<div class="liens-projet"><a href="${projet.lien_video}" target="_blank" rel="noopener" class="lien-secondaire">Voir la video</a></div>` : ''}
+                ${projet.lien_video ? `<div class="liens-projet"><a href="${projet.lien_video}" target="_blank" rel="noopener" class="lien-secondaire">Voir la vidéo</a></div>` : ''}
             `;
 
             container.appendChild(article);
         });
     }
 
+    // --- CHARGEMENT DES PROJETS ---
     function chargerProjets() {
         fetch('/data/projets.json')
             .then(response => {
-                if (!response.ok) throw new Error('Erreur reseau');
+                if (!response.ok) throw new Error('Erreur réseau');
                 return response.json();
             })
             .then(projets => {
@@ -114,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // --- ÉVÉNEMENTS FILTRES ---
     filtresBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             filtresBtns.forEach(b => b.classList.remove('active'));
@@ -134,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // --- GESTION DU RETOUR ARRIÈRE ---
     window.addEventListener('popstate', function() {
         const params = new URLSearchParams(window.location.search);
         const competence = params.get('competence') || 'tous';
@@ -146,5 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
         afficherProjets();
     });
 
+    // --- LANCEMENT ---
     chargerProjets();
 });

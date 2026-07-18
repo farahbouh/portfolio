@@ -1,35 +1,28 @@
 [
   {
-    "id": "interactiv-media",
-    "titre": "Interactiv' Media - Site vitrine avec systeme de gestion d'evenements",
-    "description": "Site vitrine (7 pages, dont un back-office admin) avec API REST Flask connectee a Supabase, authentification securisee par token, CRUD complet sur les evenements. Deploiement Netlify (frontend) + Render (backend). Score Lighthouse : 83 performances, 86 accessibilite, 100 SEO. Conformite RGAA.",
-    "duree": "mai 2026 - juil. 2026 (2 mois)",
-    "statut": "termine",
-    "tags": ["Flask", "Python", "SQL", "JavaScript", "HTML", "CSS", "Supabase", "Lighthouse", "RGAA", "API REST"],
-    "lien_demo": "https://interactiv-media.netlify.app/",
-    "lien_video": "static/videos/interactiv-media.mp4",
-    "lien_code": "https://github.com/farahbouh/interactiv-media"
-  },
-  {
     "id": "portfolio",
     "titre": "Portfolio personnel",
-    "description": "Site vitrine developpe en solo : Flask, structure de donnees JSON, design system personnalise.",
-    "duree": "juil. 2026 (2 semaines)",
-    "statut": "termine",
-    "tags": ["Flask", "Python", "Jinja", "HTML", "CSS"],
-    "lien_demo": null,
-    "lien_video": null,
+    "description": "Site vitrine développé en solo avec Flask et une API REST maison (endpoints /api/projets, /api/competences). Filtrage dynamique des projets par compétence en JavaScript. Structure de données en JSON, design system personnalisé (navigation Glider.js, marquee des compétences, grille responsive).",
+    "duree": "juillet 2026 (2 semaines)",
+    "statut": "terminé",
+    "type": "personnel",
+    "collaboration": "en autonomie",
+    "tags": ["Flask", "jina", "Python", "Jinja", "JavaScript", "HTML", "CSS", "Glider.js", "API REST"],
+    "lien_demo": "https://portfolio.netlify.app/",
+    "lien_video": "static/videos/portfolio.mp4",
     "lien_code": "https://github.com/farahbouh/portfolio"
   },
   {
-    "id": "plateforme-apprentissage",
-    "titre": "Plateforme d'apprentissage en ligne",
-    "description": "Application web pour cours en ligne avec systeme de quiz et suivi des progres.",
-    "duree": "sept. 2026 - dec. 2026 (4 mois)",
-    "statut": "en-cours",
-    "tags": ["Flask", "Python", "SQL", "JavaScript"],
-    "lien_demo": null,
-    "lien_video": null,
-    "lien_code": null
+    "id": "interactiv-media",
+    "titre": "Interactiv' Media - Gestion d'événements",
+    "description": "Site vitrine complet avec back-office admin pour la gestion des événements. Développement d'une API REST Flask connectée à Supabase, authentification sécurisée par token JWT et CRUD complet. Déploiement en production sur Netlify (frontend) et Render (backend). Audit Lighthouse : 83 performances, 86 accessibilité, 100 SEO. Conformité RGAA.",
+    "duree": "mai 2026 - juillet 2026 (2 mois)",
+    "statut": "terminé",
+    "type": "stage",
+    "collaboration": "en autonomie",
+    "tags": ["Flask", "Python", "Supabase", "SQL", "JavaScript", "HTML", "CSS", "API REST", "Lighthouse", "RGAA"],
+    "lien_demo": "https://interactiv-media.netlify.app/",
+    "lien_video": "static/videos/interactiv-media.mp4",
+    "lien_code": "https://github.com/farahbouh/interactiv-media"
   }
 ]

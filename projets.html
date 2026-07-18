@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Farah Bouhnaida - Projets</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="scripts/navigation.js" defer></script>
+    <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body data-page="projets">
 
@@ -18,16 +17,16 @@
                 <li><a href="/apropos" data-page="apropos">À propos</a></li>
                 <li><a href="/contact" data-page="contact">Contact</a></li>
             </ul>
-            <div class="glider"></div>
         </nav>
     </header>
 
     <main class="container page-projets">
         <h1 class="titre-page">Projets</h1>
-        <p class="sous-titre-page">Mes realisations personnelles et professionnelles</p>
+        <p class="sous-titre-page">Mes réalisations personnelles et professionnelles</p>
 
+        <!-- FILTRES -->
         <div class="filtres-container">
-            <span class="filtres-label">Filtrer par competence :</span>
+            <span class="filtres-label">Filtrer par compétence :</span>
             <button class="filtre-btn active" data-categorie="tous">Tous</button>
             {% for comp in competences %}
                 <button class="filtre-btn" data-categorie="{{ comp }}">{{ comp }}</button>
@@ -35,6 +34,7 @@
             <span class="filtres-resultats"><strong id="compteur-projets">0</strong> projet(s)</span>
         </div>
 
+        <!-- GRILLE DES PROJETS (remplie par JS) -->
         <div class="grille-projets" id="projets-container"></div>
     </main>
 

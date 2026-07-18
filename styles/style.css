@@ -44,24 +44,9 @@ main {
    UTILITAIRES
    ============================================================ */
 .container {
-    width: 95%;
-    max-width: 1200px;
+    width: min(92%, 1200px);
+    padding: 0 clamp(16px, 3vw, 32px);
     margin: 0 auto;
-    padding: 0 16px;
-}
-
-@media (min-width: 768px) {
-    .container {
-        width: 90%;
-        padding: 0 24px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        width: 85%;
-        padding: 0 32px;
-    }
 }
 
 /* ============================================================
@@ -295,7 +280,7 @@ h1 {
 }
 
 /* ============================================================
-   HEADER & NAVIGATION
+   HEADER & NAVIGATION (SANS GLIDER - AVEC SOULIGNEMENT)
    ============================================================ */
 header {
     background-color: var(--bleu-fonce);
@@ -347,8 +332,8 @@ nav::after {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 4px;
-    background-color: var(--bleu);
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.1);
     z-index: 0;
 }
 
@@ -385,7 +370,7 @@ nav a {
     position: relative;
     z-index: 2;
     white-space: nowrap;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 @media (min-width: 600px) {
@@ -401,37 +386,31 @@ nav a {
     }
 }
 
-nav a::before,
+/* --- Soulignement (comme la marquee) --- */
 nav a::after {
     content: '';
     position: absolute;
     bottom: 0;
-    width: 12px;
-    height: 12px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--bleu);
+    border-radius: 2px 2px 0 0;
+    transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-nav a::before {
-    left: -12px;
-    background: radial-gradient(circle at top left, transparent 12px, rgba(255, 255, 255, 0.1) 12.5px);
+/* Survol : le soulignement apparaît */
+nav a:hover::after {
+    width: 100%;
 }
 
-nav a::after {
-    right: -12px;
-    background: radial-gradient(circle at top right, transparent 12px, rgba(255, 255, 255, 0.1) 12.5px);
+/* Page active : soulignement permanent */
+nav a.active::after {
+    width: 100%;
 }
 
 nav a:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
-}
-
-nav a:hover::before,
-nav a:hover::after {
-    opacity: 1;
 }
 
 nav a.active {
@@ -439,54 +418,7 @@ nav a.active {
 }
 
 nav a.active:hover {
-    background: transparent;
-    transform: none;
-}
-
-nav a.active:hover::before,
-nav a.active:hover::after {
-    opacity: 0;
-}
-
-/* ============================================================
-   GLIDER (INDICATEUR DE PAGE ACTIVE)
-   ============================================================ */
-.glider {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 28px;
-    background-color: var(--bleu);
-    border-radius: 50px 50px 0 0;
-    z-index: 0;
-    pointer-events: none;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@media (min-width: 600px) {
-    .glider {
-        height: 32px;
-    }
-}
-
-.glider::before,
-.glider::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    filter: blur(2px);
-}
-
-.glider::before {
-    left: -12px;
-    background: radial-gradient(circle at top left, transparent 12px, var(--bleu) 12.5px);
-}
-
-.glider::after {
-    right: -12px;
-    background: radial-gradient(circle at top right, transparent 12px, var(--bleu) 12.5px);
+    /* Rien de spécial, on garde le soulignement */
 }
 
 /* ============================================================
@@ -515,10 +447,6 @@ nav a.active:hover::after {
     font-family: var(--police-affichage);
     color: var(--bleu-fonce);
     margin-bottom: 8px;
-}
-
-body[data-page="accueil"] main {
-    background-color: var(--bleu-fonce);
 }
 
 /* ============================================================
@@ -553,9 +481,6 @@ body[data-page="accueil"] main {
     opacity: 1;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.25s ease;
-}
-
-.carte-projet.anim {
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
@@ -574,13 +499,6 @@ body[data-page="accueil"] main {
         padding: 18px;
     }
 }
-
-.carte-projet.anim:nth-child(1) { animation-delay: 0.05s; }
-.carte-projet.anim:nth-child(2) { animation-delay: 0.1s; }
-.carte-projet.anim:nth-child(3) { animation-delay: 0.15s; }
-.carte-projet.anim:nth-child(4) { animation-delay: 0.2s; }
-.carte-projet.anim:nth-child(5) { animation-delay: 0.25s; }
-.carte-projet.anim:nth-child(6) { animation-delay: 0.3s; }
 
 .carte-projet:hover {
     transform: translateY(-4px);
@@ -665,111 +583,174 @@ body[data-page="accueil"] main {
 }
 
 /* ============================================================
-   BADGES
+   BADGES (UNIFORMISÉS – STATUT, TYPE, TECHNOS, LANGUES, COMPÉTENCES)
    ============================================================ */
+
+/* --- Conteneur des badges en haut de la carte --- */
+.badges-haut {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+/* ---------- BADGE STATUT ---------- */
+.badge-statut {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.badge-statut-termine {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.badge-statut-en-cours {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e3a8a;
+    border: 1px solid #93c5fd;
+}
+
+.badge-statut-a-venir {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #78350f;
+    border: 1px solid #fcd34d;
+}
+
+.badge-statut-brouillon {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+/* ---------- BADGE TYPE ---------- */
+.badge-type {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    border: none;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.badge-type-personnel {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+}
+
+.badge-type-academique {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #fff;
+}
+
+.badge-type-stage {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+    color: #fff;
+}
+
+/* ---------- BADGE TECHNOS (tags projets) ---------- */
 .badge {
     display: inline-block;
     padding: 4px 14px;
-    background: #f0f2f5;
-    color: #333;
-    border-radius: 20px;
-    border: 1px solid transparent;
-    font-size: 12px;
+    border-radius: 50px;
+    background: #f1f5f9;
+    color: #1e293b;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.badge-surlignee {
+    background: var(--bleu);
+    color: white;
+    border-color: var(--bleu);
+    box-shadow: 0 0 20px rgba(27, 79, 114, 0.25);
+}
+
+/* ---------- BADGE TECH (compétences techniques - page À propos) ---------- */
+.badge-tech {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 50px;
+    background: var(--bleu-tres-clair);
+    color: var(--bleu);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #bee3f8;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.badge-tech:hover {
+    background: var(--bleu);
+    color: white;
+    border-color: var(--bleu);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(27, 79, 114, 0.15);
+}
+
+/* ---------- BADGE LANGUE (page À propos) ---------- */
+.badge-langue {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 50px;
+    background: #f0f4f8;
+    color: var(--bleu-fonce);
+    font-size: 0.8rem;
     font-weight: 500;
-    cursor: default;
-    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.badge-langue .niveau {
+    font-weight: 300;
+    font-size: 0.7rem;
+    color: #718096;
+}
+
+.badge-langue:hover {
+    background: var(--bleu-tres-clair);
+    border-color: var(--bleu);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* ---------- SURVOL COMMUN ---------- */
+.badge-statut:hover,
+.badge-type:hover,
+.badge:hover,
+.badge-tech:hover,
+.badge-langue:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+}
+
+.badge-type:hover {
+    filter: brightness(1.08);
 }
 
 .badge:hover {
     background: var(--bleu);
     color: white;
     border-color: var(--bleu);
-    transform: translateY(-1px);
-}
-
-.badge-statut {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 8px;
-}
-
-.badge-statut-termine {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.badge-statut-en-cours {
-    background: #cce5ff;
-    color: #004085;
-    border: 1px solid #b8daff;
-}
-
-.badge-statut-a-venir {
-    background: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-
-.badge-statut-brouillon {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.badge-tech,
-.badge-langue {
-    display: inline-block;
-    padding: 5px 14px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@media (min-width: 768px) {
-    .badge-tech,
-    .badge-langue {
-        padding: 6px 18px;
-        font-size: 13px;
-    }
-}
-
-.badge-tech {
-    background: var(--bleu-tres-clair);
-    color: var(--bleu);
-    border: 1px solid #bee3f8;
-}
-
-.badge-tech:hover {
-    background: var(--bleu);
-    color: white;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(27, 79, 114, 0.15);
-}
-
-.badge-langue {
-    background: #f0f4f8;
-    color: var(--bleu-fonce);
-    border: 1px solid #e2e8f0;
-}
-
-.badge-langue .niveau {
-    font-weight: 300;
-    font-size: 11px;
-    color: #718096;
-}
-
-@media (min-width: 768px) {
-    .badge-langue .niveau {
-        font-size: 12px;
-    }
 }
 
 /* ============================================================
@@ -797,10 +778,6 @@ body[data-page="accueil"] main {
 
 .bouton-principal:hover {
     border-bottom-color: var(--bleu);
-    text-decoration: none;
-    background: none;
-    transform: none;
-    box-shadow: none;
 }
 
 .bouton-principal:hover::after {
@@ -1197,56 +1174,118 @@ body[data-page="accueil"] main {
 }
 
 /* ============================================================
-   FILTRE ACTIF
+   FILTRES PROJETS
    ============================================================ */
-.filtre-actif {
+.filtres-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 14px 20px;
-    margin-top: 30px;
-    background: var(--gris-clair);
-    border: 1px solid var(--gris-moyen);
-    border-radius: 12px;
-    font-size: 14px;
-    color: var(--bleu-fonce);
     flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--gris-moyen);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-@media (min-width: 600px) {
-    .filtre-actif {
-        flex-direction: row;
-        align-items: center;
-        padding: 14px 24px;
+.filtres-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--bleu-fonce);
+    margin-right: 4px;
+}
+
+.filtre-btn {
+    padding: 6px 16px;
+    background: var(--gris-clair);
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--bleu-fonce);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.filtre-btn:hover {
+    background: var(--bleu-tres-clair);
+    border-color: var(--bleu);
+    transform: translateY(-2px);
+}
+
+.filtre-btn.active {
+    background: var(--bleu);
+    color: white;
+    border-color: var(--bleu);
+    box-shadow: 0 4px 12px rgba(27, 79, 114, 0.25);
+}
+
+.filtre-btn.active:hover {
+    background: var(--bleu-fonce);
+    border-color: var(--bleu-fonce);
+}
+
+.filtres-resultats {
+    margin-left: auto;
+    font-size: 13px;
+    color: #718096;
+}
+
+.filtres-resultats strong {
+    color: var(--bleu-fonce);
+}
+
+@media (max-width: 600px) {
+    .filtres-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .filtres-label {
+        margin-bottom: 4px;
+    }
+
+    .filtre-btn {
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 12px;
+        flex: 1;
+    }
+
+    .filtres-resultats {
+        margin-left: 0;
+        text-align: center;
+        padding-top: 4px;
     }
 }
 
-.filtre-actif span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* ============================================================
+   STYLES PROJETS SUPPLEMENTAIRES
+   ============================================================ */
+.duree-projet {
+    font-size: 13px;
+    color: #718096;
+    margin: 4px 0 12px;
 }
 
-.filtre-actif span::before {
-    content: '🏷️';
-    font-size: 16px;
+.liens-projet {
+    margin-top: 12px;
 }
 
-.filtre-actif a {
-    padding: 4px 14px;
+.lien-secondaire {
     color: var(--bleu);
-    font-weight: 600;
     text-decoration: none;
-    border-radius: 20px;
-    background: rgba(27, 79, 114, 0.05);
-    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-.filtre-actif a:hover {
-    background: rgba(27, 79, 114, 0.12);
-    text-decoration: none;
+.lien-secondaire:hover {
+    color: var(--bleu-fonce);
+    text-decoration: underline;
 }
 
 /* ============================================================
@@ -1301,126 +1340,6 @@ footer a {
 footer a:hover {
     color: var(--bleu);
     text-decoration: underline;
-}
-
-/* ============================================================
-   FILTRES PROJETS
-   ============================================================ */
-.filtres-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid var(--gris-moyen);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.filtres-label {
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--bleu-fonce);
-    margin-right: 4px;
-}
-
-
-
-.filtre-btn {
-    padding: 6px 16px;
-    background: var(--gris-clair);
-    border: 2px solid transparent;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--bleu-fonce);
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.filtre-btn:hover {
-    background: var(--bleu-tres-clair);
-    border-color: var(--bleu);
-    transform: translateY(-2px);
-}
-
-.filtre-btn.active {
-    background: var(--bleu);
-    color: white;
-    border-color: var(--bleu);
-    box-shadow: 0 4px 12px rgba(27, 79, 114, 0.25);
-}
-
-.filtre-btn.active:hover {
-    background: var(--bleu-fonce);
-    border-color: var(--bleu-fonce);
-}
-
-.filtres-resultats {
-    margin-left: auto;
-    font-size: 13px;
-    color: #718096;
-}
-
-.filtres-resultats strong {
-    color: var(--bleu-fonce);
-}
-
-/* ============================================================
-   STYLES PROJETS SUPPLEMENTAIRES
-   ============================================================ */
-.duree-projet {
-    font-size: 13px;
-    color: #718096;
-    margin: 4px 0 12px;
-}
-
-.liens-projet {
-    margin-top: 12px;
-}
-
-.lien-secondaire {
-    color: var(--bleu);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.lien-secondaire:hover {
-    color: var(--bleu-fonce);
-    text-decoration: underline;
-}
-
-/* ============================================================
-   RESPONSIVE FILTRES
-   ============================================================ */
-@media (max-width: 600px) {
-    .filtres-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-        padding: 12px 16px;
-    }
-
-    .filtres-label {
-        margin-bottom: 4px;
-    }
-
-    .filtre-btn {
-        text-align: center;
-        padding: 8px 12px;
-        font-size: 12px;
-        flex: 1;
-    }
-
-    .filtres-resultats {
-        margin-left: 0;
-        text-align: center;
-        padding-top: 4px;
-    }
 }
 
 /* ============================================================
