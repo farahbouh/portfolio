@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return collabLabels[collab] || collab;
     }
 
+    // --- FONCTION UTILITAIRE : vérifier si un lien est valide ---
+    function isValidLink(url) {
+        // Retourne true uniquement si le lien existe ET n'est pas "#" ET n'est pas vide
+        return url && url !== '#' && url.trim() !== '';
+    }
+
     // --- FONCTION D'AFFICHAGE ---
     function afficherProjets() {
         let projetsFiltres = tousLesProjets;
@@ -81,17 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (compteur) compteur.textContent = projetsFiltres.length;
 
-        projetsFiltres.forEach((projet, index) => {
+        projetsFiltres.forEach((projet) => {
             const article = document.createElement('article');
             article.className = 'carte-projet';
-            article.style.animationDelay = (index * 0.05) + 's';
 
             const tags = projet.tags || [];
             const statut = projet.statut || 'brouillon';
             const type = projet.type || 'personnel';
             const collaboration = projet.collaboration || 'en autonomie';
 
-            // --- Utilisation des fonctions sécurisées ---
             const statutClass = getStatutClass(statut);
             const statutLabel = getStatutLabel(statut);
             const typeClass = getTypeClass(type);
@@ -105,15 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 badges += `<span class="badge${estActif ? ' badge-surlignee' : ''}">${tag}</span>`;
             });
 
-            // Bouton
-            let bouton = '';
-            if (projet.lien_demo) {
-                bouton = `<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="bouton-principal">Voir la démo</a>`;
-            } else if (projet.lien_code) {
-                bouton = `<a href="${projet.lien_code}" target="_blank" rel="noopener" class="bouton-principal">Voir le code</a>`;
+            // ---- Construction des boutons d'action ----
+            const actions = [];
+
+            // Chaque lien est testé INDÉPENDAMMENT avec isValidLink()
+            if (isValidLink(projet.lien_demo)) {
+                actions.push(`<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="btn-action btn-demo">Voir la démo</a>`);
+            }
+            if (isValidLink(projet.lien_code)) {
+                actions.push(`<a href="${projet.lien_code}" target="_blank" rel="noopener" class="btn-action btn-demo">Voir le code</a>`);
+            }
+            if (isValidLink(projet.lien_video)) {
+                actions.push(`<a href="${projet.lien_video}" target="_blank" rel="noopener" class="btn-action btn-video">Voir la vidéo</a>`);
             }
 
-            // Surbrillance
+            const actionsHtml = actions.length > 0 ? `<div class="actions-projet">${actions.join('')}</div>` : '';
+
+            // Surbrillance si filtre actif
             const estSurbrillance = filtreActif !== 'tous' && (projet.tags || []).some(tag => tag === filtreActif);
             if (estSurbrillance) {
                 article.classList.add('carte-surlignee');
@@ -123,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let dureeTexte = projet.duree || '';
             const affichageDuree = dureeTexte ? `${dureeTexte} · ${collabLabel}` : collabLabel;
 
-            // --- CONSTRUCTION DE LA CARTE ---
+            // Construction HTML de la carte
             article.innerHTML = `
                 <div class="meta-badges">
                     <span class="${statutClass}">${statutLabel}</span>
@@ -138,8 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <div class="badges">${badges}</div>
 
-                ${bouton}
-                ${projet.lien_video ? `<div class="liens-projet"><a href="${projet.lien_video}" target="_blank" rel="noopener" class="lien-secondaire">Voir la vidéo</a></div>` : ''}
+                ${actionsHtml}
             `;
 
             container.appendChild(article);

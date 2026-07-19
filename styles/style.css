@@ -372,7 +372,7 @@ nav a {
     }
 }
 
-/* --- Soulignement (comme la marquee) --- */
+/* Soulignement */
 nav a::after {
     content: '';
     position: absolute;
@@ -385,12 +385,10 @@ nav a::after {
     transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Survol : le soulignement apparaît */
 nav a:hover::after {
     width: 100%;
 }
 
-/* Page active : soulignement permanent */
 nav a.active::after {
     width: 100%;
 }
@@ -401,10 +399,6 @@ nav a:hover {
 
 nav a.active {
     color: #fff;
-}
-
-nav a.active:hover {
-    /* Rien de spécial, on garde le soulignement */
 }
 
 /* ============================================================
@@ -452,6 +446,7 @@ nav a.active:hover {
     }
 }
 
+/* ========== CARTE PROJET (version épurée) ========== */
 .carte-projet {
     flex: 1 1 calc(33.333% - 30px);
     min-width: 280px;
@@ -464,10 +459,11 @@ nav a.active:hover {
     display: flex;
     flex-direction: column;
     position: relative;
-    opacity: 1;
+    opacity: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    transition: all 0.25s ease;
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.5s ease-out forwards;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
 }
 
 @media (max-width: 992px) {
@@ -487,11 +483,13 @@ nav a.active:hover {
 }
 
 .carte-projet:hover {
-    transform: translateY(-4px);
-    border-color: #d0d5dd;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+    transform: translateY(-5px);
+    border-color: var(--bleu);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
 }
 
+/* On supprime la barre colorée en haut si elle n'est pas souhaitée, 
+   mais on la garde (c'est un détail visuel statique) */
 .carte-projet::before {
     content: '';
     position: absolute;
@@ -529,34 +527,16 @@ nav a.active:hover {
     margin: 0 0 18px;
 }
 
-/* ---------- Carte surlignée ---------- */
+/* ----- Carte surlignée (filtre actif) : sans pulse ----- */
 .carte-surlignee {
     border-color: var(--bleu);
-    animation: pulse-surlignage 1.6s ease-in-out infinite;
-    box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.15), 0 8px 30px rgba(27, 79, 114, 0.15);
+    box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.15), 0 8px 25px rgba(27, 79, 114, 0.1);
+}
+.carte-surlignee:hover {
+    box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.2), 0 12px 28px rgba(27, 79, 114, 0.15);
 }
 
-.carte-surlignee .badge-surlignee {
-    background: var(--bleu);
-    color: white;
-    border-color: var(--bleu);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .carte-surlignee {
-        animation: none;
-    }
-}
-
-@keyframes pulse-surlignage {
-    0%, 100% {
-        box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.15), 0 8px 30px rgba(27, 79, 114, 0.15);
-    }
-    50% {
-        box-shadow: 0 0 0 6px rgba(27, 79, 114, 0.08), 0 8px 30px rgba(27, 79, 114, 0.15);
-    }
-}
-
+/* Animation d'entrée */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -572,7 +552,7 @@ nav a.active:hover {
    BADGES (UNIFORMISÉS – STATUT, TYPE, TECHNOS, LANGUES, COMPÉTENCES)
    ============================================================ */
 
-/* --- Conteneur des badges en haut de la carte --- */
+/* Conteneur des badges en haut de la carte */
 .badges-haut {
     display: flex;
     flex-wrap: wrap;
@@ -580,7 +560,7 @@ nav a.active:hover {
     margin-bottom: 14px;
 }
 
-/* ---------- BADGE STATUT ---------- */
+/* BADGE STATUT */
 .badge-statut {
     display: inline-block;
     padding: 4px 16px;
@@ -590,35 +570,30 @@ nav a.active:hover {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     border: none;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
-
 .badge-statut-termine {
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
     color: #065f46;
     border: 1px solid #6ee7b7;
 }
-
 .badge-statut-en-cours {
     background: linear-gradient(135deg, #dbeafe, #bfdbfe);
     color: #1e3a8a;
     border: 1px solid #93c5fd;
 }
-
 .badge-statut-a-venir {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     color: #78350f;
     border: 1px solid #fcd34d;
 }
-
 .badge-statut-brouillon {
     background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
     color: #374151;
     border: 1px solid #d1d5db;
 }
 
-/* ---------- BADGE TYPE ---------- */
+/* BADGE TYPE */
 .badge-type {
     display: inline-block;
     padding: 4px 16px;
@@ -629,26 +604,19 @@ nav a.active:hover {
     letter-spacing: 0.06em;
     color: #fff;
     border: none;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
 .badge-type-personnel {
     background: linear-gradient(135deg, #059669, #10b981);
-    color: #fff;
 }
-
 .badge-type-academique {
     background: linear-gradient(135deg, #2563eb, #3b82f6);
-    color: #fff;
 }
-
 .badge-type-stage {
     background: linear-gradient(135deg, #d97706, #f59e0b);
-    color: #fff;
 }
 
-/* ---------- BADGE TECHNOS (tags projets) ---------- */
+/* BADGE TECHNOS (tags projets) */
 .badge {
     display: inline-block;
     padding: 4px 14px;
@@ -658,18 +626,15 @@ nav a.active:hover {
     font-size: 0.7rem;
     font-weight: 600;
     border: 1px solid #e2e8f0;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 1px 4px rgba(0,0,0,0.02);
 }
-
 .badge-surlignee {
     background: var(--bleu);
     color: white;
     border-color: var(--bleu);
-    box-shadow: 0 0 20px rgba(27, 79, 114, 0.25);
 }
 
-/* ---------- BADGE TECH (compétences techniques - page À propos) ---------- */
+/* BADGE TECH (compétences techniques - page À propos) */
 .badge-tech {
     display: inline-block;
     padding: 4px 16px;
@@ -680,10 +645,7 @@ nav a.active:hover {
     font-weight: 600;
     border: 1px solid #bee3f8;
     text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
 }
-
 .badge-tech:hover {
     background: var(--bleu);
     color: white;
@@ -692,7 +654,7 @@ nav a.active:hover {
     box-shadow: 0 8px 25px rgba(27, 79, 114, 0.15);
 }
 
-/* ---------- BADGE LANGUE (page À propos) ---------- */
+/* BADGE LANGUE (page À propos) */
 .badge-langue {
     display: inline-block;
     padding: 4px 16px;
@@ -702,43 +664,76 @@ nav a.active:hover {
     font-size: 0.8rem;
     font-weight: 500;
     border: 1px solid #e2e8f0;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
 }
-
 .badge-langue .niveau {
     font-weight: 300;
     font-size: 0.7rem;
     color: #718096;
 }
-
 .badge-langue:hover {
     background: var(--bleu-tres-clair);
     border-color: var(--bleu);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
-
-/* ---------- SURVOL COMMUN ---------- */
-.badge-statut:hover,
-.badge-type:hover,
-.badge:hover,
-.badge-tech:hover,
-.badge-langue:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+/* ============================================================
+   BOUTONS D'ACTION SUR LES CARTES PROJETS
+   ============================================================ */
+.actions-projet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    align-items: center;
 }
 
-.badge-type:hover {
-    filter: brightness(1.08);
+.btn-action {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
 }
 
-.badge:hover {
+/* Bouton principal (démo / code) */
+.btn-demo {
     background: var(--bleu);
-    color: white;
+    color: #fff;
     border-color: var(--bleu);
 }
+.btn-demo:hover {
+    background: var(--bleu-fonce);
+    border-color: var(--bleu-fonce);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(27, 79, 114, 0.25);
+}
 
+/* Bouton secondaire (vidéo) */
+.btn-video {
+    background: transparent;
+    color: var(--bleu);
+    border-color: var(--bleu);
+}
+.btn-video:hover {
+    background: var(--bleu-tres-clair);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 79, 114, 0.1);
+}
+
+/* Si un seul bouton, on le met en version pleine */
+.actions-projet:only-child .btn-action {
+    background: var(--bleu);
+    color: #fff;
+    border-color: var(--bleu);
+}
+.actions-projet:only-child .btn-action:hover {
+    background: var(--bleu-fonce);
+    border-color: var(--bleu-fonce);
+}
 /* ============================================================
    BOUTONS
    ============================================================ */
@@ -753,21 +748,13 @@ nav a.active:hover {
     align-self: flex-start;
     background: none;
     border-radius: 0;
-    transition: all 0.2s ease;
 }
-
 .bouton-principal::after {
     content: ' →';
     display: inline-block;
-    transition: transform 0.2s ease;
 }
-
 .bouton-principal:hover {
     border-bottom-color: var(--bleu);
-}
-
-.bouton-principal:hover::after {
-    transform: translateX(4px);
 }
 
 .bouton-envoyer {
@@ -1000,6 +987,18 @@ nav a.active:hover {
     border-radius: 16px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-apropos::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--bleu), var(--bleu-clair));
 }
 
 @media (max-width: 600px) {
@@ -1052,8 +1051,15 @@ nav a.active:hover {
 }
 
 .liste-experiences li {
-    padding: 12px 0;
+    padding: 12px 10px;
+    margin: 0 -10px;
     border-bottom: 1px solid #f0f4f8;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.liste-experiences li:hover {
+    background: var(--gris-clair);
 }
 
 .liste-experiences li:last-child {
@@ -1084,35 +1090,42 @@ nav a.active:hover {
 }
 
 .periode {
-    font-weight: 600;
+    display: inline-block;
+    align-self: flex-start;
+    font-weight: 700;
     color: var(--bleu);
-    font-size: 13px;
+    background: var(--bleu-tres-clair);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    padding: 3px 12px;
+    border-radius: 50px;
+    margin-bottom: 4px;
 }
 
 .statut {
-    padding: 2px 12px;
-    background: var(--bleu-fonce);
-    color: white;
+    padding: 4px 14px;
+    background: var(--gris-moyen);
+    color: var(--bleu-fonce);
     border-radius: 50px;
-    font-size: 10px;
-    font-weight: 500;
-    opacity: 0.8;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .intitule {
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 17px;
     color: var(--bleu-fonce);
+    letter-spacing: -0.01em;
 }
 
 .etablissement {
     color: #4a5568;
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 .description {
     color: #718096;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 4px;
     line-height: 1.5;
 }
@@ -1336,15 +1349,12 @@ footer a:hover {
         animation: none;
         opacity: 1;
     }
-    
     .carte-projet:hover {
         transform: none;
     }
-    
     .carte-surlignee {
         animation: none;
     }
-    
     .marquee-track {
         animation: none;
     }
