@@ -24,5 +24,44 @@
     "lien_demo": "https://interactiv-media.netlify.app/",
     "lien_video": "static/videos/interactiv-media.mp4",
     "lien_code": "https://github.com/farahbouh/interactiv-media"
+  },
+   {
+    "id": "loreforge-ecrivain",
+    "titre": "LoreForge - Gestionnaire d'univers pour écrivains",
+    "description": "Développement d'un outil d'aide à l'écriture permettant de structurer les univers romanesques (personnages, lieux, relations, timeline). Le backend Java Spring Boot gère la persistance des données complexes (graphe de relations), tandis que le frontend Angular offre une interface intuitive pour visualiser les liens entre entités.",
+    "duree": "aout 2026 (3 semaines)",
+    "statut": "a-venir",
+    "type": "personnel",
+    "collaboration": "en autonomie",
+    "tags": ["Angular", "TypeScript", "Java", "API REST", "PostgreSQL", "JavaScript", "HTML", "CSS", "Git"],
+    "lien_demo": "#",
+    "lien_video": "#",
+    "lien_code": "#"
+  },
+  {
+    "id": "skilly-apprentissage",
+    "titre": "Skilly - Plateforme d'apprentissage par flashcards",
+    "description": "Conception d'une plateforme d'apprentissage par flashcards intégrant un algorithme de répétition espacée. L'outil permet de créer des paquets de cartes, de suivre ses révisions quotidiennes et de visualiser sa progression sur un tableau de bord. Modélisation d'un système de recommandation basé sur la performance utilisateur.",
+    "duree": "aout 2026 (2 semaines)",
+    "statut": "a-venir",
+    "type": "personnel",
+    "collaboration": "en autonomie",
+    "tags": ["Node.js", "TypeScript", "API REST", "PostgreSQL", "JavaScript", "Git"],
+    "lien_demo": "#",
+    "lien_video": "#",
+    "lien_code": "#"
+  },
+  {
+    "id": "mealmate-recettes",
+    "titre": "MealMate - Planificateur de repas intelligent",
+    "description": "Développement d'un planificateur de repas proposant des recettes à partir des ingrédients disponibles. Génération automatique de listes de courses. L'application est conteneurisée avec Docker et intègre une pipeline CI/CD (GitHub Actions) pour le déploiement continu.",
+    "duree": "septembre 2026 (2 semaines)",
+    "statut": "a-venir",
+    "type": "personnel",
+    "collaboration": "en autonomie",
+    "tags": ["Python", "Flask", "Docker", "CI/CD", "Git", "PostgreSQL"],
+    "lien_demo": "#",
+    "lien_video": "#",
+    "lien_code": "#"
   }
 ]
