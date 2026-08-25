@@ -3,11 +3,12 @@
     "id": "portfolio",
     "titre": "Portfolio personnel",
     "description": "Site vitrine développé en solo avec Flask et une API REST maison (endpoints /api/projets, /api/competences). Filtrage dynamique des projets par compétence en JavaScript. Structure de données en JSON, design system personnalisé (navigation Glider.js, marquee des compétences, grille responsive).",
+    "bloc_lettre": "J'ai conçu ce portfolio personnel dans le but de regrouper l'ensemble de mes réalisations et de disposer d'une vitrine professionnelle en ligne. Ce projet m'a permis d'approfondir ma maîtrise de Flask et du JavaScript côté frontend, en mettant un point d'honneur sur l'expérience utilisateur et l'accessibilité. J'ai notamment réalisé un audit Lighthouse qui m'a aidé à optimiser les performances et à garantir une navigation fluide, tout en respectant les normes RGAA.",
     "duree": "juillet 2026 (2 semaines)",
     "statut": "terminé",
     "type": "personnel",
     "collaboration": "en autonomie",
-    "tags": ["Flask", "jina", "Python", "Jinja", "JavaScript", "HTML", "CSS", "Glider.js", "API REST"],
+    "tags": ["Flask", "Python", "Jinja", "JavaScript", "HTML", "CSS", "API REST"],
     "lien_demo": "https://portfolio.netlify.app/",
     "lien_video": "static/videos/portfolio.mp4",
     "lien_code": "https://github.com/farahbouh/portfolio"
@@ -16,6 +17,7 @@
     "id": "interactiv-media",
     "titre": "Interactiv' Media - Gestion d'événements",
     "description": "Site vitrine complet avec back-office admin pour la gestion des événements. Développement d'une API REST Flask connectée à Supabase, authentification sécurisée par token JWT et CRUD complet. Déploiement en production sur Netlify (frontend) et Render (backend). Audit Lighthouse : 83 performances, 86 accessibilité, 100 SEO. Conformité RGAA.",
+    "bloc_lettre": "Lors de mon stage de deux mois, j'ai eu l'opportunité de développer en totale autonomie une application web complète. Ce projet m'a particulièrement passionnée car il m'a confrontée à des problématiques concrètes d'architecture logicielle : conception d'une API REST sécurisée par tokens JWT, gestion des autorisations, et persistance des données via Supabase. Au-delà du code, j'ai également veillé à la qualité du produit final en réalisant des audits de performance et en m'assurant de la conformité aux exigences d'accessibilité (RGAA).",
     "duree": "mai 2026 - juillet 2026 (2 mois)",
     "statut": "terminé",
     "type": "stage",
@@ -25,12 +27,13 @@
     "lien_video": "static/videos/interactiv-media.mp4",
     "lien_code": "https://github.com/farahbouh/interactiv-media"
   },
-   {
+  {
     "id": "loreforge-ecrivain",
     "titre": "LoreForge - Gestionnaire d'univers pour écrivains",
     "description": "Développement d'un outil d'aide à l'écriture permettant de structurer les univers romanesques (personnages, lieux, relations, timeline). Le backend Java Spring Boot gère la persistance des données complexes (graphe de relations), tandis que le frontend Angular offre une interface intuitive pour visualiser les liens entre entités.",
+    "bloc_lettre": "Je travaille actuellement sur un outil d'aide à l'écriture destiné aux auteurs, permettant de modéliser des univers complexes sous forme de graphes de relations. Ce projet est pour moi l'occasion de monter en compétences sur des technologies robustes comme Java Spring Boot pour le backend et Angular pour le frontend. La modélisation des données relationnelles et la gestion des entités interconnectées représentent un défi technique passionnant, qui renforce ma compréhension des bases de données et de la conception orientée objet.",
     "duree": "aout 2026 (3 semaines)",
-    "statut": "a-venir",
+    "statut": "en-cours",
     "type": "personnel",
     "collaboration": "en autonomie",
     "tags": ["Angular", "TypeScript", "Java", "API REST", "PostgreSQL", "JavaScript", "HTML", "CSS", "Git"],
@@ -39,29 +42,17 @@
     "lien_code": "#"
   },
   {
-    "id": "skilly-apprentissage",
-    "titre": "Skilly - Plateforme d'apprentissage par flashcards",
-    "description": "Conception d'une plateforme d'apprentissage par flashcards intégrant un algorithme de répétition espacée. L'outil permet de créer des paquets de cartes, de suivre ses révisions quotidiennes et de visualiser sa progression sur un tableau de bord. Modélisation d'un système de recommandation basé sur la performance utilisateur.",
-    "duree": "aout 2026 (2 semaines)",
-    "statut": "a-venir",
-    "type": "personnel",
-    "collaboration": "en autonomie",
-    "tags": ["Node.js", "TypeScript", "API REST", "PostgreSQL", "JavaScript", "Git"],
-    "lien_demo": "#",
-    "lien_video": "#",
-    "lien_code": "#"
-  },
-  {
-    "id": "mealmate-recettes",
-    "titre": "MealMate - Planificateur de repas intelligent",
-    "description": "Développement d'un planificateur de repas proposant des recettes à partir des ingrédients disponibles. Génération automatique de listes de courses. L'application est conteneurisée avec Docker et intègre une pipeline CI/CD (GitHub Actions) pour le déploiement continu.",
-    "duree": "septembre 2026 (2 semaines)",
-    "statut": "a-venir",
-    "type": "personnel",
-    "collaboration": "en autonomie",
-    "tags": ["Python", "Flask", "Docker", "CI/CD", "Git", "PostgreSQL"],
-    "lien_demo": "#",
-    "lien_video": "#",
-    "lien_code": "#"
-  }
+  "id": "assistant-redaction",
+  "titre": "Assistant de rédaction CV & Lettres de motivation",
+  "description": "Application web modulaire 100% locale (localStorage) permettant de construire des CV et lettres de motivation à partir de blocs pré-écrits. Moteur de matching lexical pour suggérer les projets pertinents selon une offre. Génération d'un 'premier jet' modifiable, export en PDF/Docx, et purge des données RGPD.",
+  "bloc_lettre": "J'ai conçu un assistant de rédaction pour CV et lettres de motivation afin de répondre à un besoin que j'ai moi-même rencontré : gagner en efficacité dans mes candidatures sans jamais dénaturer ma plume. L'outil fonctionne sur le principe d'un constructeur modulaire : il guide l'utilisateur via un questionnaire, assemble ses propres blocs de texte pour proposer un premier jet structuré, et lui laisse l'intégralité de la main sur un éditeur pour affiner le contenu final. J'ai accordé une importance particulière à la fiabilité (matching lexical par score), à l'expérience utilisateur (Wizard guidé) et à la sécurité des données (architecture 100% locale avec localStorage, et bouton de purge RGPD). Ce projet m'a permis de mettre en pratique des notions clés du génie logiciel : conception modulaire, qualité du code et test de cohérence.",
+  "duree": "février 2026 - mars 2026 (1 mois)",
+  "statut": "en-cours",
+  "type": "personnel",
+  "collaboration": "en autonomie",
+  "tags": ["React", "JavaScript", "HTML", "CSS", "localStorage", "PDF", "UX/UI", "Matching lexical", "RGPD", "Tests"],
+  "lien_demo": "#",
+  "lien_video": "#",
+  "lien_code": "#"
+}
 ]
