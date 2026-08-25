@@ -1,7 +1,7 @@
 from flask import Flask, render_template, send_from_directory
 import json
 import os
-app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
+app = Flask(__name__, template_folder='.', static_folder=None)
 def get_competences():
     json_path = os.path.join('data', 'competences.json')
     with open(json_path, encoding='utf-8') as f:
