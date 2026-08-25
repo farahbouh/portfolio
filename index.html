@@ -43,18 +43,8 @@
 
     <section class="marquee-section" aria-label="Compétences techniques">
       <div class="marquee-track">
-        <div class="marquee-content">
-          {% for comp in competences %}
-            <a href="/projets?competence={{ comp|urlencode }}" class="marquee-item">{{ comp }}</a>
-            {% if not loop.last %}<span class="marquee-sep">•</span>{% endif %}
-          {% endfor %}
-        </div>
-        <div class="marquee-content" aria-hidden="true">
-          {% for comp in competences %}
-            <a href="/projets?competence={{ comp|urlencode }}" class="marquee-item" tabindex="-1">{{ comp }}</a>
-            {% if not loop.last %}<span class="marquee-sep">•</span>{% endif %}
-          {% endfor %}
-        </div>
+        <div class="marquee-content" id="marquee-track-1"></div>
+        <div class="marquee-content" id="marquee-track-2"></div>
       </div>
     </section>
   </main>
@@ -68,6 +58,8 @@
       <a href="/static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener">CV</a>
     </div>
   </footer>
+
+  <script src="scripts/competences.js"></script>
 
 </body>
 </html>

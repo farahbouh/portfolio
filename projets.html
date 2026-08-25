@@ -24,13 +24,10 @@
         <h1 class="titre-page">Projets</h1>
         <p class="sous-titre-page">Mes réalisations personnelles et professionnelles</p>
 
-        <!-- FILTRES -->
+        <!-- FILTRES (les boutons de compétence sont ajoutés par projets.js) -->
         <div class="filtres-container">
             <span class="filtres-label">Filtrer par compétence :</span>
             <button class="filtre-btn active" data-categorie="tous">Tous</button>
-            {% for comp in competences %}
-                <button class="filtre-btn" data-categorie="{{ comp }}">{{ comp }}</button>
-            {% endfor %}
             <span class="filtres-resultats"><strong id="compteur-projets">0</strong> projet(s)</span>
         </div>
 

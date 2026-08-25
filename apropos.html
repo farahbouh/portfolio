@@ -89,11 +89,7 @@
 
       <section class="section-apropos section-pleine-largeur">
         <h3 class="titre-section">Compétences techniques</h3>
-        <div class="badges-container">
-          {% for comp in competences %}
-            <a href="/projets?competence={{ comp|urlencode }}" class="badge-tech">{{ comp }}</a>
-          {% endfor %}
-        </div>
+        <div class="badges-container" id="badges-competences"></div>
       </section>
     </div>
 
@@ -111,6 +107,8 @@
       <a href="/static/CV_Farah_Bouhnaida.pdf" target="_blank" rel="noopener">CV</a>
     </div>
   </footer>
+
+  <script src="scripts/competences.js"></script>
 
 </body>
 </html>

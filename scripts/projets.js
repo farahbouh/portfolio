@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('projets-container');
     const compteur = document.getElementById('compteur-projets');
-    const filtresBtns = document.querySelectorAll('.filtre-btn');
-    
+    const filtresContainer = document.querySelector('.filtres-container');
+    const resultatsSpan = document.querySelector('.filtres-resultats');
+
     if (!container) return;
 
     let tousLesProjets = [];
@@ -57,14 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- FONCTION UTILITAIRE : vérifier si un lien est valide ---
     function isValidLink(url) {
-        // Retourne true uniquement si le lien existe ET n'est pas "#" ET n'est pas vide
         return url && url !== '#' && url.trim() !== '';
     }
 
     // --- FONCTION D'AFFICHAGE ---
     function afficherProjets() {
         let projetsFiltres = tousLesProjets;
-        
+
         if (filtreActif !== 'tous') {
             projetsFiltres = tousLesProjets.filter(projet => {
                 const tags = projet.tags || [];
@@ -102,17 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const typeLabel = getTypeLabel(type);
             const collabLabel = getCollabLabel(collaboration);
 
-            // Badges tags
             let badges = '';
             tags.forEach(tag => {
                 const estActif = filtreActif !== 'tous' && tag === filtreActif;
                 badges += `<span class="badge${estActif ? ' badge-surlignee' : ''}">${tag}</span>`;
             });
 
-            // ---- Construction des boutons d'action ----
             const actions = [];
 
-            // Chaque lien est testé INDÉPENDAMMENT avec isValidLink()
             if (isValidLink(projet.lien_demo)) {
                 actions.push(`<a href="${projet.lien_demo}" target="_blank" rel="noopener" class="btn-action btn-demo">Voir la démo</a>`);
             }
@@ -125,17 +122,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const actionsHtml = actions.length > 0 ? `<div class="actions-projet">${actions.join('')}</div>` : '';
 
-            // Surbrillance si filtre actif
             const estSurbrillance = filtreActif !== 'tous' && (projet.tags || []).some(tag => tag === filtreActif);
             if (estSurbrillance) {
                 article.classList.add('carte-surlignee');
             }
 
-            // Durée + collaboration
             let dureeTexte = projet.duree || '';
             const affichageDuree = dureeTexte ? `${dureeTexte} · ${collabLabel}` : collabLabel;
 
-            // Construction HTML de la carte
             article.innerHTML = `
                 <div class="meta-badges">
                     <span class="${statutClass}">${statutLabel}</span>
@@ -157,6 +151,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // --- GESTION DES CLICS SUR LES FILTRES (délégation d'événement) ---
+    function activerFiltre(categorie) {
+        document.querySelectorAll('.filtre-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.categorie === categorie);
+        });
+
+        filtreActif = categorie;
+
+        const url = new URL(window.location.href);
+        if (categorie === 'tous') {
+            url.searchParams.delete('competence');
+        } else {
+            url.searchParams.set('competence', categorie);
+        }
+        window.history.pushState({}, '', url);
+
+        afficherProjets();
+    }
+
+    if (filtresContainer) {
+        filtresContainer.addEventListener('click', function (e) {
+            const btn = e.target.closest('.filtre-btn');
+            if (!btn) return;
+            activerFiltre(btn.dataset.categorie);
+        });
+    }
+
+    // --- GESTION DU RETOUR ARRIÈRE ---
+    window.addEventListener('popstate', function() {
+        const params = new URLSearchParams(window.location.search);
+        const competence = params.get('competence') || 'tous';
+
+        document.querySelectorAll('.filtre-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.categorie === competence);
+        });
+
+        filtreActif = competence;
+        afficherProjets();
+    });
+
+    // --- CHARGEMENT DES COMPÉTENCES (boutons de filtre) ---
+    function chargerCompetences() {
+        return fetch('/data/competences.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur réseau');
+                return response.json();
+            })
+            .then(competences => {
+                if (!filtresContainer || !resultatsSpan) return;
+                competences.forEach(comp => {
+                    const btn = document.createElement('button');
+                    btn.className = 'filtre-btn';
+                    btn.dataset.categorie = comp;
+                    btn.textContent = comp;
+                    filtresContainer.insertBefore(btn, resultatsSpan);
+                });
+            })
+            .catch(error => {
+                console.error('Erreur de chargement des compétences:', error);
+            });
+    }
+
     // --- CHARGEMENT DES PROJETS ---
     function chargerProjets() {
         fetch('/data/projets.json')
@@ -166,17 +222,17 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(projets => {
                 tousLesProjets = projets;
-                
+
                 const params = new URLSearchParams(window.location.search);
                 const competence = params.get('competence');
-                
+
                 if (competence) {
                     filtreActif = competence;
-                    filtresBtns.forEach(btn => {
+                    document.querySelectorAll('.filtre-btn').forEach(btn => {
                         btn.classList.toggle('active', btn.dataset.categorie === competence);
                     });
                 }
-                
+
                 afficherProjets();
             })
             .catch(error => {
@@ -185,40 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // --- ÉVÉNEMENTS FILTRES ---
-    filtresBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            filtresBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            const categorie = this.dataset.categorie;
-            filtreActif = categorie;
-            
-            const url = new URL(window.location.href);
-            if (categorie === 'tous') {
-                url.searchParams.delete('competence');
-            } else {
-                url.searchParams.set('competence', categorie);
-            }
-            window.history.pushState({}, '', url);
-            
-            afficherProjets();
-        });
-    });
-
-    // --- GESTION DU RETOUR ARRIÈRE ---
-    window.addEventListener('popstate', function() {
-        const params = new URLSearchParams(window.location.search);
-        const competence = params.get('competence') || 'tous';
-        
-        filtresBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.categorie === competence);
-        });
-        
-        filtreActif = competence;
-        afficherProjets();
-    });
-
-    // --- LANCEMENT ---
-    chargerProjets();
+    // --- LANCEMENT : compétences d'abord (pour avoir les boutons), puis projets ---
+    chargerCompetences().then(chargerProjets);
 });
