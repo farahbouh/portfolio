@@ -602,10 +602,10 @@ nav a.active {
 
 /* ----- Carte surlignée (filtre actif) ----- */
 .carte-surlignee {
-    box-shadow: 0 0 0 3px var(--jaune), var(--ombre-md);
+    box-shadow: var(--ombre-md);
 }
 .carte-surlignee:hover {
-    box-shadow: 0 0 0 3px var(--jaune), var(--ombre-lg);
+    box-shadow: var(--ombre-lg);
 }
 
 @keyframes fadeInUp {
@@ -805,7 +805,6 @@ nav a.active {
     transition: border-color .15s ease;
 }
 .bouton-principal::after {
-    content: ' →';
     display: inline-block;
 }
 .bouton-principal:hover {
